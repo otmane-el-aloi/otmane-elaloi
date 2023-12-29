@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="img/logo/logo_white_large.png" />
     <script src="https://kit.fontawesome.com/8e5115ece8.js" crossorigin="anonymous"></script>
-    <link rel = "stylesheet" href = "/css/all.css">
     <title>Otmane EL ALOI</title>
 </head>
 <style>
@@ -15,82 +15,58 @@
         width: 10px;
 
     }
-    ::-webkit-scrollbar-track{
+
+    ::-webkit-scrollbar-track {
         color: turquoise;
         border: solid 1px;
     }
-    ::-webkit-scrollbar-thumb{
+
+    ::-webkit-scrollbar-thumb {
         background-color: turquoise;
         height: 10px;
     }
 </style>
+
 <body>
-    <canvas id="canvas1"></canvas>
-    
-    <!--Navigation bar-->
-    <section id = "header">
-        <div class = "header-container">
-            <div class = 'nav-bar'>
-                <div class = "logo">
-                    <img class = "logoImg" src="img/logo/logo_small_resized.png" alt='logo'>
-                </div>
-                <div class = "nav-list">
-                    <ul>
-                        <il><a href = "#">Home</a></il>
-                        <il><a href = "#about">About</a></il>
-                        <il><a href = "#">Intersts</a></il>
-                        <il><a href = "#">Projects</a></il>
-                        <il><a href = "#">Contacts</a></il>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!--Navigation bar-->
-
     <!--Home section-->
-    <section id = "home">
+    <section id="home">
         <div class="home container">
-            <div class ="column-left">
-                <div class = "home-img">
-                    <img src = "img/profile.png" alt = "profile">
+            <div class="column-left">
+                <div class="home-img">
+                    <img src="img/profile.png" alt="profile">
                 </div>
             </div>
-            <div class ="column-right">
-                <h1> Hi! 🤗 I'm  <span1>Otmane</span1> El aloi.</h1>
-                <h2>Final year Master's student @ <span1>Ecole Centrale de Nantes</span1></h2>
-                <p>I am a Data Engineer/Scientist, absolutely passionate about MLOps,
-                    data science, data engineering and everything in between.
+            <div class="column-right">
+                <h1> Hi! 🤗 I'm <span1>Otmane</span1> El aloi.</h1>
+                <h2>Master's degree @ <span1>Ecole Centrale de Nantes</span1>
+                </h2>
+                <p>I am an experienced Data Engineer, absolutely passionate about Data,
+                    MLOps, Software Engineering and everything in between.
                 </p>
-                <div class ="home-buttons">
-                    <a href ="#" type ="button" class ="cta"> resume </a>
-                    <a href ='#' type ="button" class ="cta2">contact me</a>
+                <div class="home-buttons">
+                    <a href="./resume/otmane_el_aloi_resume.pdf" download="otmane_el_aloi_resume" type="button"
+                        class="cta"> resume </a>
+                    <a href='#' type="button" class="cta2">contact me</a>
                 </div>
             </div>
         </div>
+        <div id="resume-container">
+            <div id="executed_commands">
+                <div class="ascii-art">
+                    <pre>
+    ██     ████   ██ ██████      █████ ███    ███    ██ 
+    ██     ████   ████    ██    ██   ██████  ████    ██ 
+    ██  █  ███████████    ██    █████████ ████ ██    ██ 
+    ██ ███ ████   ████    ██    ██   ████  ██  ██    ██ 
+     ███ ███ ██   ██ ██████     ██   ████      ██    ██ 
+                    </pre>
+                </div>
+                <div>🔥 Enter <i>help</i> to get list of all available commands 🔥</div>
+            </div>
 
-        <!-- Floating Social Media bar Starts -->
-        <div class="float-sm">
-            <div class="fl-fl float-ld">
-                <i class="fa fa-linkedin"></i>
-                <a href="" target="_blank">Hire me!</a>
-            </div>
-            <div class="fl-fl float-gt">
-                <i class="fa fa-github"></i>
-                <a href="" target="_blank"> Fun stuff!</a>
-            </div>
-            <div class="fl-fl float-fb">
-                <i class="fa fa-facebook"></i>
-                <a href="" target="_blank"> Why not!</a>
-            </div>
-            <div class="fl-fl float-gp">
-                <i class="fa fa-google-plus"></i>
-                <a href="" target="_blank">Contact me!</a>
-            </div>
-            <div class="fl-fl float-ig">
-                <i class="fa fa-instagram"></i>
-                <a href="" target="_blank">Follow me!</a>
+            <div id="command-line">
+                <span>otmane@elaloi~$</span>
+                <input type="text" autofocus="autofocus" id="command" />
             </div>
 
         </div>
@@ -98,209 +74,160 @@
     </section>
     <!--Home section-->
 
-    <!--About section-->
-    <div class = "underConstruction">
-        <h1> 🚧 Under Construction 👷</h1>
-        <span class="emoji hourglass" role="img" aria-label="hourglass"></span>
-    </div>
-    <!--
-    <section id = "about">
-        <div class = "section-header">
-            <h1> 🚧 ABOUT 👷</h1>
+    <section id="utils">
+        <!-- 9. Error -->
+        <div id="error" style="display: none;">
+            <p><strong>Error</strong>: Command not found! Enter <i>help</i> to get list of all available commands..</p>
         </div>
-         <div class = "about">
-            <div class = "education">
-                <div class = "education-header">
-                    <h1>Education</h1>
-                </div>
-                <div class = "education-schools">
-                    <div class = "ECN">
-                        <div class = "education-duration">
-                            <h2>Septembre, 2019 - now</h2>
-                        </div>
-                        <div class = "education-title">
-                            <h1><span>General engineering</span> </h1>
-                        </div>
-                        <div class = "education-major">
-                            <p>Lorem ipsum dolor sit amet consectetur 
-                                adipisicing elit. Cum modi illo non, necessitatibus 
-                                eum expedita enim sapiente atque doloribus nam a 
-                                sed commodi in iste quos! Obcaecati itaque molestiae nobis!
-                            </p>
-                        </div>
-                        <div class = "education-school">
-                            <h1>
-                                Ecole Centrale de Nantes, France
-                            </h1>
-                        </div>
-                    </div>
-                    <div class = "CPGE">
-                        <div class = "education-duration">
-                            <h2>2017 - 2019</h2>
-                        </div>
-                        <div class = "education-title">
-                            <h1><span>Advanced mathematics and physics and engineering</span></h1>
-                        </div>
-                        <div class = "education-major">
-                            <p>Lorem ipsum dolor sit amet consectetur 
-                                adipisicing elit. Cum modi illo non, necessitatibus 
-                                eum expedita enim sapiente atque doloribus nam a 
-                                sed commodi in iste quos! Obcaecati itaque molestiae nobis!
-                            </p>
-                        </div>
-                        <div class = "education-school">
-                            <h1>
-                                CPGE moulay youssef, France
-                            </h1>
-                        </div>
-                    </div>
-                </div>
+
+        <div id="help" style="display: none;">
+            <div>
+                ------------------ <br>
+                Built-in Commands <br>
+                ------------------ <br>
+                <br>
+                <ul>
+                    <li><strong>whois:</strong> View personal information</li>
+                    <li><strong>education:</strong> View education details</li>
+                    <li><strong>experiences:</strong> View work experiences</li>
+                    <li><strong>certifications:</strong> View certifications</li>
+                    <li><strong>skills:</strong> View skills</li>
+                    <li><strong>lang:</strong> View languages</li>
+                    <li><strong>contact:</strong> View contact information</li>
+                    <li><strong>clear:</strong> Clear the terminal</li>
+                </ul>
             </div>
-            <div class = "experiences">
-                <div class = "experience-header">
-                    <h1>Experiences</h1>
-                </div>
-                <div class = "ALL4TEC">
-                    <div class = "position-duration">
-                        <h2>april 2021, now</h2>
-                    </div>
-                    <div class = "company-name">
-                        <h1>ALL4TEC</h1>
-                    </div>
-                    <div class = "position-title">
-                        <h1><span>Data Scientist</span> </h1> 
-                    </div>
-                    <div class = "position-messions">
+        </div>
+
+        <div id="experience" , style="display: none;">
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - La Poste</p>
+                <p>[06/2023 - present]</p>
+                <ul>
+                    <li>
+                        Migration et Optimisation des pipelines Big Data pour le domaine finance de La Poste
                         <ul>
-                            <il>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur 
-                                    dicta vero debitis reprehenderit quod nihil sed enim minima 
-                                    nesciunt labore doloremque possimus provident tempora animi, 
-                                    error eius similique suscipit officia?</p> 
-                            </il>
+                            <li>Développement de pipelines de données Spark/Scala.</li>
+                            <li>Réduction des temps de traitement des pipelines de données sur Spark/Scala (de 5h à 30
+                                min).</li>
+                            <li>Restructuration de l'orchestration des pipelines sur Airflow pour une meilleure
+                                visibilité et une plus grande flexibilité dans l'ajout de nouveaux flux de données.</li>
+                            <li>Migration des flux de données vers Cloudera Data Engineering sur Kubernetes, incluant la
+                                séparation de la base de code par usage, la migration du code, le paramétrage des jobs
+                                Spark.</li>
+                            <li>Contribution à plusieurs projets data sur le domaine Finance.</li>
                         </ul>
-                    </div>
-                    <div class = "position-place">
-                        <h2>Laval, France</h2>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
 
-        </div> -->
-    <!-- </section> -->
-    <!--About section-->
-    <!--Portfolio section-->
-    <!-- <section id = "portfolio">
-        <div class = "section-header">
-            <h1>PORTFOLIO</h1>
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - Daher</p>
+                <p>[10/2022 - 06/2023]</p>
+                <ul>
+                    <li>
+                        Optimisation d'une architecture data Event-Driven pour la branche AVION de Daher
+                        <ul>
+                            <li>Réduction des coûts de la plateforme data (Azure) par 1/10.</li>
+                            <li>Amélioration de la MCO ( Mise en place d'un système de monitoring des différents flux de
+                                données: Logging, Dashboards...)</li>
+                            <li>Migration des indicateurs sur la performance (~150 algorithmes) des vols de Python à
+                                Pyspark.</li>
+                            <li>Mise en place des pratiques DevOps (Azure DevOps) sur DataBricks (env Dev/Qual/Prod,
+                                CI/CD,
+                                modularisation du code)</li>
+                            <li>Développement d'Azure Functions pour la génération automatique de rapports de vol à
+                                partir des
+                                données de suivi de vol stockées dans la plateforme Lakehouse.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - AS24</p>
+                <p>[05/2022 - 09/2022]</p>
+                <ul>
+                    <li>
+                        Mise en place d'une solution BI (Serverless) pour le suivi des évolutions des tickets Jira créés
+                        dans le contexte du support métier aux activités d'AS24.
+                        <ul>
+                            <li>Conception et mise en oeuvre de la solution en mode serverless sur Azure Cloud (Coûts
+                                de dev et de
+                                run ~ 5$/mois)</li>
+                            <li>Développement des flux ETL avec des Azure Functions (Time Triggered, Blob Triggered,
+                                Durable
+                                Functions, Azure SQL DataBase) pour traiter les données Jira.</li>
+                            <li>Conception d'un modèle dimensionnel en étoile pour faciliter l'analyse des données.</li>
+                            <li>Création de rapports visuels interactifs avec Power BI pour aider les utilisateurs à prendre des
+                                décisions éclairées.</li>
+                            <li>Utilisation de Azure DevOps et IaC sous Terraform pour le développement et la gestion de la
+                                solution, garantissant une livraison continue et une évolutivité maximale.
+                                </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - STG</p>
+                <p>[04/2022 - 05/2022]</p>
+                <ul>
+                    <li>
+                        Mise en place d'une solution BI sur Snowflake pour la gestion de la flotte des véhicules de
+                        STGS.
+                        <ul>
+                            <li>•Développement de pipelines de données sur Talend Open Studio et Snowflake.</li>
+                            <li>Mise en place des différentes couches de données sur Snowflake (Brute, Object Métier, Data Marts).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Scientist (Stage)</h4>
+                <p>ALL4TEC</p>
+                <p>[04/2021 - 08/2021]</p>
+                <ul>
+                    <li>
+                        Traitement et analyse des données de roulage d'une voiture autonome.
+                        <ul>
+                            <li>Extraction des scénarios de roulages à partir des données réelles.</li>
+                            <li>Reproduction des scénarios extraits dans une plateforme de simulation.</li>
+                            <li>Génération d'autres scénarios de roulage avec de l'apprentissage statistique.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class = "portfolio">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, sed!</p>
-            <div class ="filter-container">
-                <div class = "category-head">
-                    <ul>
-                        <div class ="category-title active", id='all'>
-                            <li>All</li>
-                        </div>
-                        <div class ="category-title", id='ML/DL'>
-                            <li>ML/DL</li>
-                        </div>
-                        <div class ="category-title", id='Data Viz'>
-                            <li>Data viz</li>
-                        </div>
-                        <div class ="category-title", id='Data Analysis'>
-                            <li>Data Analysis</li>
-                        </div>
-                        <div class ="category-title", id='Articles'>
-                            <li>Articles</li>
-                        </div>
-                    </ul>
-                </div>
-                <div class = "projects-collect">
-                    <div class = "projects-main-container">
-                        <div class = "all DataViz">
-                            <img class = "project-img" src="img/dataViz.png", alt="project">
-                            <h3 class = "category-name">Data Viz</h3>
 
-                            <div class = "project-content">
-                                <div class ="project-content-top">
-                                    <h3>DATA VIZ PROJECT 1</h3>
-                                </div>
-                                <h2>Description</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                     Commodi dolore voluptatum quam error iste fugit praesentium est consequatur 
-                                     aliquam iusto, iure ab esse labore, voluptatibus
-                                      obcaecati hic aliquid a totam qui impedit facere! 
-                                      Mollitia aliquid molestiae pariatur, facilis ullam 
-                                      maiores cum modi architecto atque, magnam accusantium,
-                                </p>
-                            </div>
-                        </div>
-                        <div class = "all MLDL">
-                            <img class = "project-img" src="img/MLDL.png", alt="project">
-                            <h3 class = "category-name">ML/DL</h3>
-                            <div class = "project-content">
-                                <div class ="project-content-top">
-                                    <h3>ML DL PROJECT 1</h3>
-                                </div>
-                                <h2>Description</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                     Commodi dolore voluptatum quam error iste fugit praesentium est consequatur 
-                                     aliquam iusto, iure ab esse labore, voluptatibus
-                                      obcaecati hic aliquid a totam qui impedit facere! 
-                                      Mollitia aliquid molestiae pariatur, facilis ullam 
-                                      </p>
-                            </div>
-                        </div>
-                        <div class = "all Articles">
-                            <img class = "project-img" src="img/articles.jpg", alt="project">
-                            <h3 class = "category-name">Articles</h3>
-                            <div class = "project-content">
-                                <div class ="project-content-top">
-                                    <h3>Articles PROJECT 1</h3>
-                                </div>
-                                <h2>Description</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                     Commodi dolore voluptatum quam error iste fugit praesentium est consequatur 
-                                     aliquam iusto, iure ab esse labore, voluptatibus
-                                      obcaecati hic aliquid a totam qui impedit facere! 
-                                      Mollitia aliquid molestiae pariatur, facilis ullam 
-                                      maiores cum modi architecto atque, magnam accusantium,
-                                </p>
-                            </div>
-                        </div>
-                        <div class = "all DataAnalysis">
-                            <img class = "project-img" src="img/DataAnalysis.jpg", alt="project">
-                            <h3 class = "category-name">Data Analysis</h3>
-                            <div class = "project-content">
-                                <div class ="project-content-top">
-                                    <h3>Data Analysis PROJECT 1</h3>
-                                </div>
-                                <h2>Description</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                     Commodi dolore voluptatum quam error iste fugit praesentium est consequatur 
-                                     aliquam iusto, iure ab esse labore, voluptatibus
-                                      obcaecati hic aliquid a totam qui impedit facere! 
-                                      Mollitia aliquid molestiae pariatur, facilis ullam 
-                                      maiores cum modi architecto atque, magnam accusantium,
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-    </section> -->
-    <!-- End of Portfolio -->
+        <div id="lang" style="display: none;">
+            <ul>
+                <li><strong>English :</strong> Professional</li>
+                <li><strong>French : </strong>Bilingual</li>
+                <li><strong>Spanish :</strong> Notions</li>
+                <li><strong>Arabic : </strong>Native</li>
+            </ul>
+        </div>
+
+        <div id="clear" style="display: none;"></div>
+    </section>
+
+
     <!-- Footer-->
-    <div id ="footer-container">
-        <div class = "copyright"> 
-            <h2>copyrights  &copy; 2020-2021, <f>Otmane EL ALOI</f>.</h2>
+    <div id="footer-container">
+        <div class="copyright">
+            <h2>copyrights &copy; 2020-2021, <f>Otmane EL ALOI</f>.</h2>
         </div>
     </div>
 
     <!-- End of footer-->
 
-    <script src = "js/script.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
+
 </html>

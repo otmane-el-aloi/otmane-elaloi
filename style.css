@@ -93,6 +93,72 @@ span {
 /* Header section */
 
 /* home setion */
+#home{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+}
+#resume-container{
+    display: flex;
+    flex-direction:column;
+    height: 600px;
+    background-color: #012A37;
+    color: white;
+    width: 70VW;
+    margin-inline: 5VW;
+    padding: 15px;
+    border-radius: 20px;
+    border: 4px solid transparent;
+    overflow: auto;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.ascii-art {
+    white-space: pre; /* Maintain preformatted text */
+    font-family: monospace; /* Ensure consistent spacing */
+    margin: 0; /* Reset margin */
+  }
+
+
+#resume-container > *{
+   margin-bottom: 10px;
+   font-size: 12px;
+}
+#command-line > span{
+    color: #7BD334;
+    font-size: 12px;
+}
+#command-line > *{
+    margin-inline: 2px;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+#command-line input{
+    outline: none !important;
+    background-color: transparent;
+    border: none;
+    color: #7BD334;
+    font-size: 12px;
+}
+
+#executed_commands {
+    display: flex;
+    flex-direction: column;
+}
+#executed_commands p{
+    margin: 0px !important;
+    width: 100% !important;
+    font-size: 12px !important;
+}
+#executed_commands >*{
+    margin-block: 10px;
+}
+
+#executed_commands ul {
+    margin-left: 20px;
+}
 
 #canvas1 {
     position: absolute;
@@ -182,12 +248,12 @@ span {
 
 #home .home {
     display: flex;
-    max-width: 100%;
-    padding : 0 50px;
-    margin : 0 auto;
-    justify-content: center;
-    flex-direction: row;
+    max-width: 50%;
+    width: 50%;
+    padding: 0 50px;
+    flex-direction: column;
     gap: 4rem;
+    align-items: center;
 }
 
 #home .column-right {
@@ -200,6 +266,12 @@ span {
 }
 #home .column-right h2{
     margin-top:-20px;
+}
+
+#home .column-right h1{
+    font-size: 28px;
+    text-align: center;
+    margin: 2rem;
 }
 
 #home .column-right p{
