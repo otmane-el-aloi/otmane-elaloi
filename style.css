@@ -159,7 +159,13 @@ span {
 #executed_commands ul {
     margin-left: 20px;
 }
+#executed_commands li {
+    margin: 0 0 5px 0;
+}
 
+#executed_commands a{
+    color: green !important;
+}
 #canvas1 {
     position: absolute;
     top: 0; left: 0;

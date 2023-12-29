@@ -1,4 +1,4 @@
-var available_cmd = ["whoAmI", "education", "certification", "experience", "skills", "lang", "contact", "help", "clear"];
+var available_cmd = ["whoAmI", "education", "certifications", "experiences", "skills", "lang", "contact", "help", "clear"];
 
 // Get the input field
 var cmd = document.getElementById("command");
