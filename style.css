@@ -32,7 +32,6 @@ span {
 }
 
 
-/* Header section */
 .my-terminal {
     display: flex;
     flex-direction: column;
@@ -213,6 +212,37 @@ span {
     color: green !important;
     font-weight: bold !important;
 }
+
+
+.terminal-button{
+    flex-direction: column;
+    align-items: center;
+    display:none
+
+}
+
+.terminal-button img{
+    width: 70%;
+    padding: 20px;
+    border-radius: 50%;
+    outline-style:inherit;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    animation: idle 1.5s infinite;
+}
+
+@keyframes idle {
+    0%,to {
+        transform: none
+    }
+
+    50% {
+        transform: scale3d(1.1,1.1,1)
+    }
+}
+
+
+
 #canvas1 {
     position: absolute;
     top: 0; left: 0;

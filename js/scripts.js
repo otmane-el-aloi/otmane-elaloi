@@ -66,6 +66,7 @@ cmd.addEventListener("keydown", function(event) {
 
 
 
+
 document.getElementById('resume-container').addEventListener('click', function (event) {
     // Check if the clicked element is not the input itself
     if (event.target !== document.getElementById('command')) {
@@ -131,3 +132,35 @@ function run_command() {
     var scrollingElement = (document.scrollingElement || document.body);
     scrollingElement.scrollTop = scrollingElement.scrollHeight;
 }
+
+
+// Hid terminal using buttons
+document.getElementById("buttons").addEventListener("click", function() {
+    var container = document.querySelector(".my-terminal");
+    var terminalButton = document.querySelector(".terminal-button");
+    // Check if the container exists and then hide it
+    if (container) {
+        container.style.display = "none";
+        terminalButton.style.display = "flex"
+    }
+});
+
+// Display terminal using click me button
+document.querySelector(".terminal-button").addEventListener("click", function() {
+    var container = document.querySelector(".my-terminal");
+    var terminalButton = document.querySelector(".terminal-button");
+    // Check if the container exists and then hide it
+    if (container) {
+        if (container.style.display == "none") {
+            container.style.display = "flex"
+            terminalButton.style.display = "none"
+
+        } else {
+            container.style.display = "none";
+        }
+    }
+});
+
+
+
+
