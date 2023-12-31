@@ -134,8 +134,9 @@ span {
     text-align: center;
     flex-direction: row;
     width: 100%;
-    background-color: #424040;
-    padding: 8px 15px;
+    /* background-color: #424040; */
+    background-color: #D2E8EF;
+    padding: 4px 15px;
     cursor:default;
     border-radius: 20px 20px 0 0;
   }
@@ -164,7 +165,7 @@ span {
     margin-bottom: 0 !important;
     color:#000000;
     width: max-content !important;
-    margin-left: auto !important;
+    margin-left: 100% !important;
   }
 
 
