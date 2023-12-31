@@ -114,6 +114,10 @@ span {
         max-width: 95%;
     }
 
+    .title p{
+        display: none !important;
+      }
+
 
   }
 
