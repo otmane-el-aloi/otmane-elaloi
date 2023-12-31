@@ -118,6 +118,10 @@ span {
         display: none !important;
       }
 
+    .float-sm{
+        display: none !important;
+    }
+
 
   }
 
@@ -509,3 +513,66 @@ span {
         content: var(--emoji-2);
     }
 }
+
+
+/* Floating Social Media Buttons */
+
+.fl-fl {
+    background: #012A37;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 4px;
+    width: 190px;
+    position: fixed;
+    right: -150px;
+    z-index: 1000;
+    font: normal normal 10px Arial;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
+  }
+  
+  .fa {
+    font-size: 20px;
+    color: #fff;
+    padding: 10px 0;
+    width: 40px;
+    margin-left: 8px;
+  }
+  
+  .fl-fl:hover {
+    right: 0;
+  }
+  
+  .fl-fl a {
+    color: #fff !important;
+    text-decoration: none;
+    text-align: center;
+    line-height: 43px!important;
+    vertical-align: top!important;
+  }
+  
+
+.float-ld {
+    top: 415px;
+  }
+  
+  .float-gt {
+    top: 470px;
+  }
+  
+  .float-gp {
+    top: 525px;
+  }
+  
+  
+  .float-fb {
+    top: 580px;
+  }
+
+  .float-ig {
+    top: 635px;
+  }
+  
