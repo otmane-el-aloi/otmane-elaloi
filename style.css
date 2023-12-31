@@ -15,7 +15,7 @@ a {
     text-decoration: none;
 }
 span1 {
-    color:turquoise
+    color:blueviolet
 }
 span {
     color: rgb(103, 10, 224);
@@ -32,53 +32,40 @@ span {
 }
 
 
-.my-terminal {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    max-width: 70vw;
-    margin-inline: 5vw;
-    height: 630px;
+#canvas1 {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(to right, #74ebd5, #acb6e5); */
+    color :#A3D2CA;
+    background-size: cover;
+    z-index: -1;
 }
 
-.menu{
-    display:flex;
-    text-align: center;
-    flex-direction: row;
-    width: 100%;
-    background-color: #424040;
-    padding: 8px 15px;
-    cursor:default;
-    border-radius: 20px 20px 0 0;
-  }
-  .menu .button{
+/* Nav Bar */
+#header {
+    position : fixed;
+    left : 0;
+    top : 0;
+    width :100vw;
+    height: auto;
+    
+}
+
+
+
+.header-container .nav-bar {
     display: flex;
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    margin-right:8px;
-    cursor:pointer;
-    flex-direction: row;
-  }
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 80%;
+    height: 100%;
 
-  .buttons-flex{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .red{background-color:#F5544D;}
-  .yellow{background-color:#FABD2F;}
-  .green{background-color:#47D043;}
+}
 
-  .title p{
-    text-align:center;
-    font-size: 18px;
-    margin-bottom: 0 !important;
-    color:#000000;
-    width: max-content !important;
-    margin-left: auto !important;
-  }
 
+/* Nav Bar End */
 /* home setion */
 @media (max-width: 600px) {
     #home{
@@ -129,13 +116,58 @@ span {
 
 
   }
-#home{
+
+
+
+.my-terminal {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    max-width: 70vw;
+    margin-inline: 5vw;
+    height: 630px;
+}
+
+.menu{
+    display:flex;
+    text-align: center;
+    flex-direction: row;
+    width: 100%;
+    background-color: #424040;
+    padding: 8px 15px;
+    cursor:default;
+    border-radius: 20px 20px 0 0;
+  }
+  .menu .button{
+    display: flex;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    margin-right:8px;
+    cursor:pointer;
+    flex-direction: row;
+  }
+
+  .buttons-flex{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-}
+  }
+  .red{background-color:#F5544D;}
+  .yellow{background-color:#FABD2F;}
+  .green{background-color:#47D043;}
+
+  .title p{
+    text-align:center;
+    font-size: 18px;
+    margin-bottom: 0 !important;
+    color:#000000;
+    width: max-content !important;
+    margin-left: auto !important;
+  }
+
+
+
 #resume-container{
     display: flex;
     flex-direction:column;
@@ -156,6 +188,7 @@ span {
     font-family: monospace; /* Ensure consistent spacing */
     margin: 0; /* Reset margin */
   }
+
 
 
 #resume-container > *{
@@ -243,15 +276,17 @@ span {
 
 
 
-#canvas1 {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    /* background: linear-gradient(to right, #74ebd5, #acb6e5);*/
-    color :#A3D2CA;
-    background-size: cover;
+#home{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+
 }
+
+
 
 #home h1 {
     display: block;
@@ -307,23 +342,22 @@ span {
     padding: 10px 30px;
     margin-right: 15px;
     color :white;
-    background-color: turquoise;
+    background-color: blueviolet;
     font-size: 2rem;
     text-transform: lowercase;
     border-radius: 45px;
-    box-shadow:0px 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow:0px 8px 15px rgba(181, 22, 255, 0.1);
     flex-direction: column;
     align-items: start;
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    box-shadow: 0px 15px 20px rgba(171, 46, 229, 0.4);
     
 
 }
 
 #home .cta2:hover{
-    color: black;
     background-color:white;
     color: black;
     transform: translateY(-7px);
@@ -375,7 +409,7 @@ span {
     border-radius: 50%;
     position: relative;
     border: 4px solid cyan;
-    filter : grayscale(100%);
+    filter : grayscale(0%);
     transition : all 800ms;
 }
 #home .column-left .home-img img::after{
