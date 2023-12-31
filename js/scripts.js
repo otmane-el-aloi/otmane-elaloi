@@ -1,9 +1,11 @@
-var available_cmd = ["whoAmI", "education", "certifications", "experiences", "skills", "lang", "contact", "help", "clear"];
+var available_cmd = ["education", "certifications", "experiences", "skills", "languages", "contacts", "help", "clear"];
+var executedCommands = []; // Array to store executed commands
+var currentCommandIndex = 0; // Index for navigating through executed commands
 
 // Get the input field
 var cmd = document.getElementById("command");
 
-// Execute a function when the user releases a key on the keyboard
+
 cmd.addEventListener("keyup", function (event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
@@ -11,7 +13,58 @@ cmd.addEventListener("keyup", function (event) {
         event.preventDefault();
         run_command();
     }
+
+    // Number 38 is the "Arrow Up" key on the keyboard
+    if (event.keyCode === 38) {
+        // Prevent the default action
+        event.preventDefault();
+        
+        // Display the previous command
+        if (currentCommandIndex > 0) {
+            currentCommandIndex--;
+            cmd.value = executedCommands[currentCommandIndex];
+        }
+    }
+
+    // Number 40 is the "Arrow Down" key on the keyboard
+    if (event.keyCode === 40) {
+        // Prevent the default action
+        event.preventDefault();
+        
+        // Display the next command
+        if (currentCommandIndex < executedCommands.length - 1) {
+            currentCommandIndex++;
+            cmd.value = executedCommands[currentCommandIndex];
+        } else {
+            // If at the end of the executed commands, display an empty input
+            currentCommandIndex = executedCommands.length;
+            cmd.value = '';
+        }
+    }
 });
+
+cmd.addEventListener("keydown", function(event) {
+    // Number 9 is the "Tab" key on the keyboard
+    if (event.keyCode === 9) {
+        // Prevent the default action (e.g., tabbing to the next element)
+        event.preventDefault();
+        
+        // Get the current value in the input field
+        var inputValue = cmd.value;
+        
+        // Find the matching command
+        var matchingCmd = available_cmd.find(function(command) {
+            return command.startsWith(inputValue);
+        });
+        
+        // If a matching command is found, autocomplete it in the input field
+        if (matchingCmd) {
+            cmd.value = matchingCmd;
+        }
+    }
+});
+
+
 
 document.getElementById('resume-container').addEventListener('click', function (event) {
     // Check if the clicked element is not the input itself
@@ -25,6 +78,10 @@ function run_command() {
     var cmd = document.getElementById("command");
     var input = cmd.value;
     var output;
+
+    // Store executed commands in the array
+    executedCommands.push(input);
+    currentCommandIndex = executedCommands.length;
 
     if (input != '') {
         // Get command from input field 

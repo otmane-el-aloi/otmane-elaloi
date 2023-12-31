@@ -33,16 +33,18 @@
         <div class="home container">
             <div class="column-left">
                 <div class="home-img">
-                    <img src="img/profile.png" alt="profile">
+                    <img src="img/profile2.png" alt="profile">
                 </div>
             </div>
             <div class="column-right">
                 <h1> Hi! 🤗 I'm <span1>Otmane</span1> El aloi.</h1>
-                <h2>Master's degree @ <span1>Ecole Centrale de Nantes</span1>
+                <h2>Engineering Degree @ <span1>Ecole Centrale de Nantes</span1>
                 </h2>
                 <p>I am an experienced Data Engineer, absolutely passionate about Data,
                     MLOps, Software Engineering and everything in between.
                 </p>
+                <p>
+                    I'm continuously seeking fresh challenges and chances to expand my knowledge and skills. If there's a project or concept where you believe I could contribute, I'm eager to explore it. Don't hesitate to hit out the contact button 😎</p>
                 <div class="home-buttons">
                     <a href="./resume/otmane_el_aloi_resume.pdf" download="otmane_el_aloi_resume" type="button"
                         class="cta"> resume</a>
@@ -99,41 +101,36 @@
 
         <div id="help" style="display: none;">
             <div>
-                ------------------ <br>
-                Built-in Commands <br>
-                ------------------ <br>
                 <br>
                 <ul>
                     <!-- <li><strong>whois:</strong> View personal information</li> -->
-                    <!-- <li><strong>education:</strong> View education details</li> -->
-                    <li><strong>experiences:</strong> View work experiences</li>
+                    <li><i>education:</i> View education details</li>
+                    <li><i>experiences:</i> View work experiences</li>
                     <!-- <li><strong>certifications:</strong> View certifications</li> -->
-                    <li><strong>skills:</strong> View skills</li>
-                    <li><strong>lang:</strong> View languages</li>
-                    <li><strong>contact:</strong> View contact information</li>
-                    <li><strong>clear:</strong> Clear the terminal</li>
+                    <li><i>skills:</i> View skills</li>
+                    <li><i>languages:</i> View languages</li>
+                    <li><i>contacts:</i> View contact information</li>
+                    <li><i>clear:</i> Clear the terminal</li>
                 </ul>
+                <p> ❗ Press <i>Tab</i> => autocompletes the command</p>
             </div>
         </div>
 
         <div id="experiences" , style="display: none;">
             <div class="job">
+                <br>
                 <h4> 💻 Data Engineer</h4>
                 <p>Inetum - La Poste</p>
                 <p>[06/2023 - present]</p>
                 <ul>
                     <li>
-                        <span>Migration et Optimisation des pipelines Big Data pour le domaine finance de La Poste </span>
+                        <span>Migration and optimization of Big Data pipelines for La Poste's finance domain </span>
                         <ul>
-                            <li>Développement de pipelines de données Spark/Scala.</li>
-                            <li>Réduction des temps de traitement des pipelines de données sur Spark/Scala (de 5h à 30
-                                min).</li>
-                            <li>Restructuration de l'orchestration des pipelines sur Airflow pour une meilleure
-                                visibilité et une plus grande flexibilité dans l'ajout de nouveaux flux de données.</li>
-                            <li>Migration des flux de données vers Cloudera Data Engineering sur Kubernetes, incluant la
-                                séparation de la base de code par usage, la migration du code, le paramétrage des jobs
-                                Spark.</li>
-                            <li>Contribution à plusieurs projets data sur le domaine Finance.</li>
+                            <li>Development of Spark/Scala data pipelines.</li>
+                            <li>Reduced data pipeline processing times on Spark/Scala from 5 hours to 30 minutes.</li>
+                            <li>Restructured pipeline orchestration on Airflow for improved visibility and greater flexibility in adding new data flows.</li>
+                            <li>Migrated data flows to Cloudera Data Engineering on Kubernetes, including codebase separation by usage, code migration, and Spark job configuration.</li>
+                            <li>Contributed to multiple data projects within the Finance domain.</li>
                         </ul>
                     </li>
                 </ul>
@@ -145,19 +142,13 @@
                 <p>[10/2022 - 06/2023]</p>
                 <ul>
                     <li>
-                    <span>Optimisation d'une architecture data Event-Driven pour la branche AVION de Daher</span>
+                    <span>Optimization of an Event-Driven data architecture for Daher's AVION branch</span>
                         <ul>
-                            <li>Réduction des coûts de la plateforme data (Azure) par 1/10.</li>
-                            <li>Amélioration de la MCO ( Mise en place d'un système de monitoring des différents flux de
-                                données: Logging, Dashboards...)</li>
-                            <li>Migration des indicateurs sur la performance (~150 algorithmes) des vols de Python à
-                                Pyspark.</li>
-                            <li>Mise en place des pratiques DevOps (Azure DevOps) sur DataBricks (env Dev/Qual/Prod,
-                                CI/CD,
-                                modularisation du code)</li>
-                            <li>Développement d'Azure Functions pour la génération automatique de rapports de vol à
-                                partir des
-                                données de suivi de vol stockées dans la plateforme Lakehouse.</li>
+                            <li>Collaborated on reducing Azure data platform costs by 1/10.</li>
+                            <li>Improved operations and maintenance (Implemented a monitoring system for various data streams: Logging, Dashboards...)</li>
+                            <li>Migrated performance indicators (~150 algorithms) for flight data from Python to Pyspark.</li>
+                            <li>Implemented DevOps practices (Azure DevOps) on DataBricks (Development/Quality/Production environments, CI/CD, code modularization).</li>
+                            <li>Developed Azure Functions for the automatic generation of flight reports using flight tracking data stored in the Lakehouse platform.</li>
                         </ul>
                     </li>
                 </ul>
@@ -169,23 +160,13 @@
                 <p>[05/2022 - 09/2022]</p>
                 <ul>
                     <li>
-                        <span>Mise en place d'une solution BI (Serverless) pour le suivi des évolutions des tickets Jira créés
-                        dans le contexte du support métier aux activités d'AS24.</span>
+                        <span>Implementation of a serverless BI solution to track the evolution of Jira tickets created within the context of AS24's business support activities.</span>
                         <ul>
-                            <li>Conception et mise en oeuvre de la solution en mode serverless sur Azure Cloud (Coûts
-                                de dev et de
-                                run ~ 5$/mois)</li>
-                            <li>Développement des flux ETL avec des Azure Functions (Time Triggered, Blob Triggered,
-                                Durable
-                                Functions, Azure SQL DataBase) pour traiter les données Jira.</li>
-                            <li>Conception d'un modèle dimensionnel en étoile pour faciliter l'analyse des données.</li>
-                            <li>Création de rapports visuels interactifs avec Power BI pour aider les utilisateurs à
-                                prendre des
-                                décisions éclairées.</li>
-                            <li>Utilisation de Azure DevOps et IaC sous Terraform pour le développement et la gestion de
-                                la
-                                solution, garantissant une livraison continue et une évolutivité maximale.
-                            </li>
+                            <li>Designed and implemented the serverless solution on Azure Cloud (Development and runtime costs ~$5/month).</li>
+                            <li>Developed ETL pipelines using Azure Functions (Time Triggered, Blob Triggered, Durable Functions, Azure SQL Database) to process Jira data.</li>
+                            <li>Designed a star schema model to facilitate data analysis.</li>
+                            <li>Created interactive visual reports using Power BI to assist users in making informed decisions.</li>
+                            <li>Utilized Azure DevOps and IaC with Terraform for developing and managing the solution, ensuring continuous delivery and maximum scalability.</li>
                         </ul>
                     </li>
                 </ul>
@@ -197,12 +178,10 @@
                 <p>[04/2022 - 05/2022]</p>
                 <ul>
                     <li>
-                        <span>Mise en place d'une solution BI sur Snowflake pour la gestion de la flotte des véhicules de
-                        STGS.</span>
+                        <span>Implemented a BI solution on Snowflake for managing STGS vehicle fleet.</span>
                         <ul>
-                            <li>Développement de pipelines de données sur Talend Open Studio et Snowflake.</li>
-                            <li>Mise en place des différentes couches de données sur Snowflake (Brute, Object Métier,
-                                Data Marts).</li>
+                            <li>Developed data pipelines on Talend Open Studio and Snowflake.</li>
+                            <li>Implemented various data layers on Snowflake (Raw, Business Object, Data Marts).</li>
                         </ul>
                     </li>
                 </ul>
@@ -214,11 +193,11 @@
                 <p>[04/2021 - 08/2021]</p>
                 <ul>
                     <li>
-                        <span>Traitement et analyse des données de roulage d'une voiture autonome.</span>
+                        <span>Processing and analyzing autonomous vehicle driving data.</span>
                         <ul>
-                            <li>Extraction des scénarios de roulages à partir des données réelles.</li>
-                            <li>Reproduction des scénarios extraits dans une plateforme de simulation.</li>
-                            <li>Génération d'autres scénarios de roulage avec de l'apprentissage statistique.</li>
+                            <li>Extracted driving scenarios from real-world driving data.</li>
+                            <li>Recreated extracted scenarios within a simulation platform</li>
+                            <li>Generated alternative driving scenarios using statistical learning.</li>
                         </ul>
                     </li>
                 </ul>
@@ -226,22 +205,23 @@
         </div>
 
         <div id="skills" style="display: none;">
+            <br>
             <ul>
-                <li><strong>Architecture de données :</strong> Data Lake, Data Warehouse, Data Lakehouse, Lambda</li>
-                <li><strong>Cloud :</strong>Azure</li>
-                <li><strong>Plateformes Data Cloud :</strong> Databricks, Cloudera, Snowflake</li>
-                <li><strong>Base de données :</strong> Relationnelles (PostgreSQL), NoSQL (Redis, MongoDB, CosmosDB)
+                <li><span>Architecture de données :</span> Data Lake, Data Warehouse, Data Lakehouse, Lambda</li>
+                <li><span>Cloud :</span> Azure</li>
+                <li><span>Plateformes Data Cloud :</span> Databricks, Cloudera, Snowflake</li>
+                <li><span>Base de données :</span> Relationnelles (PostgreSQL), NoSQL (Redis, MongoDB, CosmosDB)
                 </li>
-                <li><strong>Big Data :</strong> Hadoop (Hdfs/Hive), Spark(Scala/PySpark), Airflow</li>
-                <li><strong>Streaming :</strong> Kafka, Spark Streaming</li>
-                <li><strong>Langages :</strong> Python, SQL, Scala, R</li>
-                <li><strong>DevOps :</strong> Git, Docker, Ansible, Terraform, Jenkins, AWX, Kubernetes, Azure DevOps
+                <li><span>Big Data :</span> Hadoop (Hdfs/Hive), Spark(Scala/PySpark), Airflow</li>
+                <li><span>Streaming :</span> Kafka, Spark Streaming</li>
+                <li><span>Langages :</span> Python, SQL, Scala, R</li>
+                <li><span>DevOps :</span> Git, Docker, Ansible, Terraform, Jenkins, AWX, Kubernetes, Azure DevOps
                 </li>
-                <li><strong>Visualization :</strong> PowerBI, Python(Seaborn, Plotly, Dash, Matplotlib)</li>
-                <li><strong>Web :</strong> Flask, Streamlit, HTML/CSS/JS, ReactJs</li>
-                <li><strong>Data Science :</strong> ML, DL, NLP, Computer Vision</li>
+                <li><span>Visualization :</span> PowerBI, Python(Seaborn, Plotly, Dash, Matplotlib)</li>
+                <li><span>Web :</span> Flask, Streamlit, HTML/CSS/JS, ReactJs</li>
+                <li><span>Data Science :</span> ML, DL, NLP, Computer Vision</li>
                 </li>
-                <li><strong>Management and Concepts :</strong> Agile(Scrum), Design patterns</li>
+                <li><span>Management and Concepts :</span> Agile(Scrum), Design patterns</li>
             </ul>
         </div>
         <div id="contact" style="display: none;">
@@ -252,12 +232,21 @@
             </ul>
         </div>
 
-        <div id="lang" style="display: none;">
+        <div id="languages" style="display: none;">
             <ul>
                 <li><strong>English :</strong> Professional</li>
                 <li><strong>French : </strong> Bilingual</li>
                 <li><strong>Spanish :</strong> Notions</li>
                 <li><strong>Arabic : </strong> Native</li>
+            </ul>
+        </div>
+
+        <div id="education" style="display: none;">
+            <ul>
+                <li><span> 👨‍🎓 Ecole Centrale de Nantes - Engineering Degree - 2019-2022 - Nantes - France</span></li>
+                <p>Double Major: Data Science & Computer Science</p>
+                <li><span> 👨‍🎓 Lycée Technique Mohammedia - CPGE-MPSI-MP* - 2017-2019 </span></li>
+                <p>Preparatory classes for prestigious engineering schools. High-level academic training in mathematics, physics, and computer science.</p>
             </ul>
         </div>
 
