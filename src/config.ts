@@ -14,7 +14,7 @@ export const PROFILE: Profile = {
     linkedin: "https://www.linkedin.com/in/otmane-elaloi/",
     twitter: "",
   },
-  resumeUrl: "#",
+  resumeUrl: "/otmane_el_aloi_resume.pdf",
 };
 
 export const SKILLS: Skill[] = [
