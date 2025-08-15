@@ -50,7 +50,7 @@ const PROFILE: Profile = {
   title: "Data Guy",
   location: "Paris, FR",
   headline:
-    "Hi 👋, Senior data engineer delivering reliable, scalable, cost-efficient data platforms across industries. My core focus is data engineering, with a background in data science & MLOps—and I’m currently learning something new.",
+    "Hi 👋, I am a Senior data engineer delivering reliable, scalable, cost-efficient data platforms across industries. My core focus is data engineering, with a background in data science & MLOps—and I’m currently learning something new.",
   email: "elaloi.otmane@gmail.com",
   socials: {
     github: "https://github.com/otmane-el-aloi",
@@ -145,15 +145,15 @@ function getBase(): string {
   try {
     const base = (import.meta as any)?.env?.BASE_URL as string | undefined;
     if (typeof base === "string" && base.length) return base;
-  } catch {}
+  } catch { }
   if (typeof window !== "undefined" && typeof window.__BASE__ === "string") return window.__BASE__!;
   return "/";
 }
 
 function toAssetUrl(p?: string): string {
   if (!p) return "";
-  if (/^(?:https?:)?\/\//i.test(p)) return p; // absolute URLs unchanged
-  const rel = p.startsWith("/") ? p.slice(1) : p; // strip leading slash
+  if (/^(?:https?:)?\/\//i.test(p)) return p;
+  const rel = p.startsWith("/") ? p.slice(1) : p;
   return getBase() + rel;
 }
 
@@ -183,7 +183,7 @@ function parseFrontMatter(raw: string): { data: Record<string, any>; content: st
     } else if (/^['"].*['"]$/.test(val)) {
       val = (val as string).replace(/^['"]|['"]$/g, "");
     }
-    data[key] = val;
+    (data as any)[key] = val;
   });
   return { data, content };
 }
@@ -208,12 +208,7 @@ async function fetchJSON<T = any>(url: string): Promise<T | null> {
   }
 }
 
-/** published semantics:
- * - missing/undefined/null  → visible (true)
- * - booleans                → respected
- * - numbers                 → 0 = false, non-zero = true
- * - strings                 → 'false' | '0' | 'no' | 'off' = false; everything else = true
- */
+/** published semantics */
 function coercePublished(v: unknown): boolean {
   if (v === undefined || v === null) return true;
   if (typeof v === "boolean") return v;
@@ -244,7 +239,6 @@ function normalizePost(p: Partial<Post>): Post {
 }
 
 async function loadPosts(): Promise<Post[]> {
-  // 1) window.__POSTS__
   if (Array.isArray(window.__POSTS__)) {
     return window.__POSTS__
       .map(normalizePost)
@@ -252,7 +246,6 @@ async function loadPosts(): Promise<Post[]> {
       .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
   }
 
-  // 2) /posts/index.json
   const manifest = await fetchJSON<any[]>(toAssetUrl("posts/index.json"));
   if (Array.isArray(manifest) && manifest.length) {
     const out: Post[] = [];
@@ -272,17 +265,13 @@ async function loadPosts(): Promise<Post[]> {
       .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
   }
 
-  // 3) Fallback sample (visible)
   return [
     normalizePost({
       title: "Hello, World (Sample Post)",
       slug: "hello-world",
       tags: ["Demo"],
       content:
-        `# Welcome!\n\n` +
-        `Add Markdown files under **/posts** and an optional **/posts/index.json** manifest.\n\n` +
-        `Images: place files in **/images/posts/hello-world/** and reference as:\n\n` +
-        `![Sample](/images/posts/hello-world/sample.png)`,
+        `# Welcome!\n\nAdd Markdown files under **/posts** and an optional **/posts/index.json** manifest.\n\nImages: place files in **/images/posts/hello-world/** and reference as:\n\n![Sample](/images/posts/hello-world/sample.png)`,
       published: true,
       dateISO: "1970-01-01",
     }),
@@ -304,7 +293,7 @@ function useTheme(): [Theme, React.Dispatch<React.SetStateAction<Theme>>] {
     try {
       const saved = localStorage.getItem(THEME_KEY) as Theme | null;
       if (saved === "light" || saved === "dark") return saved;
-    } catch {}
+    } catch { }
     if (typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
@@ -318,7 +307,7 @@ function useTheme(): [Theme, React.Dispatch<React.SetStateAction<Theme>>] {
     const isDark = theme === "dark";
     root.classList.toggle("dark", isDark);
     (root.style as any).colorScheme = isDark ? "dark" : "light";
-    try { localStorage.setItem(THEME_KEY, theme); } catch {}
+    try { localStorage.setItem(THEME_KEY, theme); } catch { }
   }, [theme]);
 
   useEffect(() => {
@@ -327,8 +316,8 @@ function useTheme(): [Theme, React.Dispatch<React.SetStateAction<Theme>>] {
     const onChange = () => {
       try {
         const saved = localStorage.getItem(THEME_KEY) as Theme | null;
-        if (saved === "light" || saved === "dark") return; // user preference wins
-      } catch {}
+        if (saved === "light" || saved === "dark") return;
+      } catch { }
       setTheme(mql.matches ? "dark" : "light");
     };
     mql.addEventListener?.("change", onChange);
@@ -347,17 +336,41 @@ function formatMonth(dateISO: string): string {
 }
 
 /* =============================
-   UI Primitives
+   Framer Motion helpers
+============================= */
+const sectionVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+const listContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.06 },
+  },
+};
+
+const listItem = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+};
+
+/* =============================
+   UI Primitives (blue accents only)
 ============================= */
 function Badge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium dark:border-neutral-700">
+    <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 dark:border-blue-900/60 dark:bg-blue-900/30 dark:text-blue-200">
       {children}
     </span>
   );
 }
 
-/* Polymorphic Button: supports as="a" with href (and plain button) */
+/* Polymorphic Button */
 type AnchorProps = React.ComponentPropsWithoutRef<"a">;
 type NativeButtonProps = React.ComponentPropsWithoutRef<"button">;
 type ButtonProps = {
@@ -371,8 +384,8 @@ function Button({ as: Comp = "button", className = "", children, ...props }: But
   return (
     <Component
       className={
-        "inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm font-medium shadow-sm transition hover:shadow " +
-        "bg-white/60 dark:bg-neutral-900/60 backdrop-blur border-neutral-200 dark:border-neutral-800 " +
+        "inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm font-medium shadow-sm transition " +
+        "bg-blue-600 text-white hover:bg-blue-700 border-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 dark:border-blue-800 " +
         className
       }
       {...(props as any)}
@@ -382,9 +395,18 @@ function Button({ as: Comp = "button", className = "", children, ...props }: But
   );
 }
 
-function Section({ id, title, kicker, children }: { id?: string; title: string; kicker?: string; children?: React.ReactNode }) {
+function Section({
+  id, title, kicker, children,
+}: { id?: string; title: string; kicker?: string; children?: React.ReactNode }) {
   return (
-    <section id={id} className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+    <motion.section
+      id={id}
+      className="mx-auto max-w-6xl px-4 py-12 sm:py-16"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={sectionVariants}
+    >
       <div className="mb-8">
         {kicker && (
           <div className="mb-2 text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
@@ -394,7 +416,7 @@ function Section({ id, title, kicker, children }: { id?: string; title: string; 
         <h2 className="text-2xl sm:text-3xl font-bold">{title}</h2>
       </div>
       {children}
-    </section>
+    </motion.section>
   );
 }
 
@@ -411,7 +433,7 @@ function BlogList({
         !q
           ? true
           : p.title.toLowerCase().includes(q) ||
-            (p.tags || []).some((t) => t.toLowerCase().includes(q))
+          (p.tags || []).some((t) => t.toLowerCase().includes(q))
       )
       .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
   }, [posts, query]);
@@ -434,9 +456,19 @@ function BlogList({
         <div className="mb-4 text-sm text-neutral-500">Loading posts…</div>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <motion.div
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={listContainer}
+      >
         {filtered.map((p) => (
-          <article key={p.id} className="rounded-2xl border p-4 transition hover:shadow dark:border-neutral-800">
+          <motion.article
+            key={p.id}
+            className="rounded-2xl border p-4 transition hover:shadow dark:border-neutral-800"
+            variants={listItem}
+          >
             <div className="mb-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
               <time>{new Date(p.dateISO).toLocaleDateString()}</time>
               <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-4 w-4" />Published</span>
@@ -452,9 +484,9 @@ function BlogList({
             <Button onClick={() => onOpen(p)}>
               Read <ArrowRight className="h-4 w-4" />
             </Button>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
 
       {!loading && filtered.length === 0 && (
         <div className="mt-8 text-center text-sm text-neutral-500">No posts found.</div>
@@ -507,6 +539,75 @@ function BlogPost({ post, onBack }: { post: Post; onBack: () => void }) {
     </article>
   );
 }
+
+function BlogCinemaBanner({
+  posts,
+  onPick,
+  show = true,
+}: {
+  posts: Post[];
+  onPick: (slug: string) => void;
+  show?: boolean;
+}) {
+  if (!show || !posts?.length) return null;
+
+  return (
+    <>
+      <style>{`
+        @keyframes ticker-rtl {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+        .ticker:hover .ticker-content {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <div
+        className="
+          ticker fixed inset-x-0 bottom-0 z-50
+          w-full border-t border-neutral-800
+          bg-black text-white
+          shadow-[0_-6px_20px_rgba(0,0,0,0.4)]
+          overflow-hidden flex items-center
+        "
+        style={{ height: "40px" }}
+      >
+        <div
+          className="ticker-content flex items-center gap-4"
+          style={{
+            width: "max-content",
+            animation: "ticker-rtl 30s linear infinite",
+          }}
+        >
+          {[...posts].map((p, idx) => (
+            <React.Fragment key={`${p.id}-${idx}`}>
+              <button
+                onClick={() => onPick(p.slug)}
+                className="
+                  px-4 py-1
+                  uppercase font-mono tracking-[0.18em]
+                  text-[11px] md:text-[12px]
+                  text-white/90 hover:text-white
+                  transition-colors
+                "
+              >
+                {p.title.toUpperCase()}
+              </button>
+              <span
+                aria-hidden="true"
+                className="select-none text-white/40"
+              >
+                •
+              </span>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
 
 /* =============================
    Main App
@@ -605,16 +706,24 @@ export default function App(): React.ReactElement {
           </nav>
           <div className="flex items-center gap-2">
             {PROFILE.resumeUrl && PROFILE.resumeUrl !== "#" && (
-              <Button as="a" href={PROFILE.resumeUrl} target="_blank" rel="noreferrer">
+              <Button as="a" href={PROFILE.resumeUrl} target="_blank" rel="noreferrer" className="bg-white text-blue-700 hover:bg-blue-50 border-blue-200">
                 <Download className="h-4 w-4" /> Resume
               </Button>
             )}
-            <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="bg-white text-blue-700 hover:bg-blue-50 border-blue-200">
               {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
           </div>
         </div>
       </header>
+
+      {/* Floating blog “cinema bars” banner */}
+      <BlogCinemaBanner
+        posts={posts}
+        onPick={(slug) => navigate("post", { slug })}
+        show={route.name !== "post"}
+      />
+
 
       {/* HERO / HOME */}
       {route.name === "home" && (
@@ -643,22 +752,34 @@ export default function App(): React.ReactElement {
           </section>
 
           <Section id="skills" title="Core Skills" kicker="Principles & capabilities">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={listContainer}
+            >
               {SKILLS.map(({ icon: Icon, label, notes }) => (
-                <div key={label} className="rounded-2xl border p-4 transition hover:shadow dark:border-neutral-800">
+                <motion.div key={label} className="rounded-2xl border p-4 transition hover:shadow dark:border-neutral-800" variants={listItem}>
                   <div className="mb-1 inline-flex items-center gap-2 text-sm font-semibold">
                     <Icon className="h-5 w-5" /> {label}
                   </div>
                   <div className="text-sm text-neutral-600 dark:text-neutral-400">{notes}</div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </Section>
 
           <Section id="services" title="Let’s collaborate" kicker="Open to new data challenges">
-            <div className="rounded-2xl border p-6 dark:border-neutral-800">
+            <motion.div
+              className="rounded-2xl border p-6 dark:border-neutral-800"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={sectionVariants}
+            >
               <p className="text-sm text-neutral-700 dark:text-neutral-300">
-                I’m open to exchange about data topics and to take on new challenges across Azure, Databricks, dbt, Power BI, Airflow, and Terraform. If you have an idea, a tricky issue, or you just want a second pair of eyes—let’s talk.
+                I’m open to exchange about data topics and to take on new challenges. If you have an idea, a tricky issue, or you just want a second pair of eyes—let’s talk.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {SKILLS.map((s) => (
@@ -670,13 +791,19 @@ export default function App(): React.ReactElement {
                   Reach out <Mail className="h-4 w-4" />
                 </Button>
               </div>
-            </div>
+            </motion.div>
           </Section>
 
           <Section id="projects" title="Selected Work" kicker="Real-world impact">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={listContainer}
+            >
               {SELECTED_WORK.map((c) => (
-                <div key={c.title} className="rounded-2xl border p-4 dark:border-neutral-800">
+                <motion.div key={c.title} className="rounded-2xl border p-4 dark:border-neutral-800" variants={listItem}>
                   <h3 className="mb-2 text-lg font-semibold">{c.title}</h3>
                   <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">{c.summary}</p>
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -694,15 +821,21 @@ export default function App(): React.ReactElement {
                       View details <ExternalLink className="h-4 w-4" />
                     </a>
                   )}
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </Section>
 
           <Section id="side-projects" title="Side Projects" kicker="Exploration & Open Source">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={listContainer}
+            >
               {SIDE_PROJECTS.map((p) => (
-                <div key={p.title} className="rounded-2xl border p-4 dark:border-neutral-800">
+                <motion.div key={p.title} className="rounded-2xl border p-4 dark:border-neutral-800" variants={listItem}>
                   <h3 className="mb-2 text-lg font-semibold">{p.title}</h3>
                   <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">{p.summary}</p>
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -720,15 +853,21 @@ export default function App(): React.ReactElement {
                       View on GitHub <ExternalLink className="h-4 w-4" />
                     </a>
                   )}
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </Section>
 
           <Section id="certs" title="Certifications" kicker="Validated expertise">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={listContainer}
+            >
               {CERTS.map((c) => (
-                <div key={c.name} className="rounded-2xl border p-5 dark:border-neutral-800">
+                <motion.div key={c.name} className="rounded-2xl border p-5 dark:border-neutral-800" variants={listItem}>
                   <div className="mb-3 flex items-center gap-3">
                     {c.logo && <img src={c.logo} alt={c.issuer} className="h-10 w-10 rounded" />}
                     <div>
@@ -745,15 +884,21 @@ export default function App(): React.ReactElement {
                       <Award className="mr-1 h-3 w-3" /> {c.issuer}
                     </Badge>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </Section>
 
           <Section id="latest" title="Latest writing" kicker="From the blog">
-            <div className="grid gap-4 md:grid-cols-3">
+            <motion.div
+              className="grid gap-4 md:grid-cols-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={listContainer}
+            >
               {latestPosts.map((p) => (
-                <article key={p.id} className="rounded-2xl border p-4 transition hover:shadow dark:border-neutral-800">
+                <motion.article key={p.id} className="rounded-2xl border p-4 transition hover:shadow dark:border-neutral-800" variants={listItem}>
                   <h3 className="mb-2 text-lg font-semibold">{p.title}</h3>
                   <div className="mb-3 flex flex-wrap gap-2">
                     {(p.tags || []).map((t) => (
@@ -763,17 +908,23 @@ export default function App(): React.ReactElement {
                   <Button onClick={() => navigate("post", { slug: p.slug })}>
                     Read <ArrowRight className="h-4 w-4" />
                   </Button>
-                </article>
+                </motion.article>
               ))}
-            </div>
+            </motion.div>
             <div className="mt-6">
               <Button onClick={() => navigate("blog")}>Visit the blog</Button>
             </div>
           </Section>
 
           <Section id="contact" title="Contact" kicker="Let’s work together">
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border p-6 dark:border-neutral-800">
+            <motion.div
+              className="grid gap-6 md:grid-cols-2"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={listContainer}
+            >
+              <motion.div className="rounded-2xl border p-6 dark:border-neutral-800" variants={listItem}>
                 <h3 className="mb-2 text-lg font-semibold">Get in touch</h3>
                 <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">
                   Send a quick note about your data stack and goals. I’ll reply within 24h.
@@ -789,9 +940,9 @@ export default function App(): React.ReactElement {
                     <Github className="h-4 w-4" /> GitHub
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="rounded-2xl border p-6 dark:border-neutral-800">
+              <motion.div className="rounded-2xl border p-6 dark:border-neutral-800" variants={listItem}>
                 <h3 className="mb-2 text-lg font-semibold">Typical stack</h3>
                 <ul className="list-disc pl-5 text-sm text-neutral-700 dark:text-neutral-300">
                   <li>Azure: ADLS, Databricks, Functions/ADF, Synapse</li>
@@ -800,8 +951,8 @@ export default function App(): React.ReactElement {
                   <li>Power BI for BI/semantic models</li>
                   <li>Terraform + Azure DevOps for IaC/CI/CD</li>
                 </ul>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </Section>
         </main>
       )}
