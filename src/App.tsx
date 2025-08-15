@@ -21,7 +21,6 @@ import {
   Workflow,
   Rocket,
   Award,
-  Bug,
 } from "lucide-react";
 
 /* =============================
@@ -32,8 +31,6 @@ interface Profile { name: string; title: string; location?: string; headline: st
 interface Skill { icon: React.FC<React.SVGProps<SVGSVGElement>>; label: string; notes: string }
 interface Cert { name: string; issuer: string; date: string; credentialUrl?: string; logo?: string }
 interface Post { id: string; title: string; slug: string; tags: string[]; dateISO: string; published: boolean; content: string }
-interface Project { title: string; client: string; period?: string; problem: string; approach: string[]; impact: string[]; stack: string[]; link?: string; }
-
 
 type RouteName = "home" | "blog" | "post";
 interface Route { name: RouteName; params?: { slug?: string } }
@@ -315,11 +312,15 @@ function Badge({ children }: { children: React.ReactNode }) {
   );
 }
 
-interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
-  as?: any;
+/* Polymorphic Button: supports as="a" with href (and plain button) */
+type AnchorProps = React.ComponentPropsWithoutRef<"a">;
+type NativeButtonProps = React.ComponentPropsWithoutRef<"button">;
+type ButtonProps = {
+  as?: "a" | "button" | React.ElementType;
   className?: string;
   children?: React.ReactNode;
-}
+} & Partial<AnchorProps & NativeButtonProps>;
+
 function Button({ as: Comp = "button", className = "", children, ...props }: ButtonProps) {
   const Component: any = Comp;
   return (
@@ -440,19 +441,19 @@ function BlogPost({ post, onBack }: { post: Post; onBack: () => void }) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          img: (props) => {
-            const src = toAssetUrl((props as any).src || "");
+          img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+            const src = toAssetUrl(props.src || "");
             return (
               <img
-                {...(props as any)}
+                {...props}
                 src={src}
                 className="my-4 w-full rounded-xl border dark:border-neutral-800"
                 loading="lazy"
               />
             );
           },
-          a: (props) => (
-            <a {...(props as any)} className="underline underline-offset-4" target="_blank" rel="noreferrer" />
+          a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+            <a {...props} className="underline underline-offset-4" target="_blank" rel="noreferrer" />
           ),
         } as any}
       >
@@ -465,7 +466,7 @@ function BlogPost({ post, onBack }: { post: Post; onBack: () => void }) {
 /* =============================
    Main App
 ============================= */
-export default function App(): JSX.Element {
+export default function App(): React.ReactElement {
   const [theme, setTheme] = useTheme();
   const [route, setRoute] = useState<Route>({ name: "home" });
   const [posts, setPosts] = useState<Post[]>([]);
