@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="img/logo/logo_white_large.png" />
+    <script src="https://kit.fontawesome.com/8e5115ece8.js" crossorigin="anonymous"></script>
+    <title>Otmane EL ALOI</title>
+</head>
+<style>
+    ::-webkit-scrollbar {
+        width: 10px;
+
+    }
+
+    ::-webkit-scrollbar-track {
+        color: turquoise;
+        border: solid 1px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: turquoise;
+        height: 10px;
+    }
+</style>
+
+<body>
+    <canvas id="canvas1"></canvas>
+    <!--Navigation bar-->
+    <section id = "header">
+        <div class = "header-container">
+            <div class = 'nav-bar'>
+                <div class = "dark-mode">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Navigation bar-->
+
+    <!--Home section-->
+    <section id="home">
+        <div class="home container">
+            <div class="column-left">
+                <div class="home-img">
+                    <img src="img/profile2.png" alt="profile">
+                </div>
+            </div>
+            <div class="column-right">
+                <h1> Hi! 🤗 I'm <span1>Otmane</span1> El aloi.</h1>
+                <h2>Engineering Degree @ <span1>Ecole Centrale de Nantes</span1>
+                </h2>
+                <p>I am an experienced <span1><strong>Data Engineer</strong></span1>, absolutely passionate about Data,
+                    MLOps, Software Engineering and everything in between.
+                </p>
+                <p>
+                    I'm continuously seeking fresh challenges and chances to expand my knowledge and skills. If there's a project or concept where you believe I could contribute, I'm eager to explore it. Don't hesitate to hit out the contact button 😎</p>
+                <div class="home-buttons">
+                    <a href="./resume/otmane_el_aloi_resume.pdf" download="otmane_el_aloi_resume" type="button"
+                        class="cta"> resume</a>
+                    <a href="mailto:elaloi.otmane@gmail.com" type="button" class="cta2">contact me 📧</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="my-terminal">
+            <div class="menu">
+                <div id="buttons" class="buttons-flex">
+                    <div class="button red"></div>
+                    <div class="button yellow"></div>
+                    <div class="button green"></div>
+                </div>
+                <div class="title">
+                    <a href="https://github.com/otmane-el-aloi" target="_blank">
+                        <p><i class='fab fa-github'></i> github.com/otmane-el-aloi</p>
+                    </a>
+                </div>
+            </div>
+            <div id="resume-container">
+                <div id="executed_commands">
+                    <div class="ascii-art">
+                        <pre>
+        ██     ████   ██ ██████      █████ ███    ███    ██ 
+        ██     ████   ████    ██    ██   ██████  ████    ██ 
+        ██  █  ███████████    ██    █████████ ████ ██    ██ 
+        ██ ███ ████   ████    ██    ██   ████  ██  ██    ██ 
+         ███ ███ ██   ██ ██████     ██   ████      ██    ██ 
+                        </pre>
+                    </div>
+                    <div>🔥 Welcome to my portfolio! 🚀 While it's a work in progress, feel free to explore and experiment around.</div>
+                    <div> 🔥 Enter <i>help</i> to get the list of all available commands </div>
+                    
+                </div>
+
+                <div id="command-line">
+                    <span>otmane@elaloi~$</span>
+                    <input type="text" autofocus="autofocus" id="command" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class ="terminal-button">
+            <img src="img/cmd.png" alt="cmd"></img>
+        </div>
+
+         <!-- Floating Social Media bar Starts -->
+         <div class="float-sm">
+            <div class="fl-fl float-ld">
+                <i class="fa fa-linkedin"></i>
+                <a href="https://www.linkedin.com/in/otmane-elaloi/" target="_blank">Hire me!</a>
+            </div>
+            <div class="fl-fl float-gt">
+                <i class="fa fa-github"></i>
+                <a href="https://github.com/otmane-el-aloi" target="_blank"> Fun stuff!</a>
+            </div>
+            <div class="fl-fl float-fb">
+                <i class="fa fa-facebook"></i>
+                <a href="" target="_blank"> Why not!</a>
+            </div>
+            <div class="fl-fl float-gp">
+                <i class="fa fa-google-plus"></i>
+                <a href="mailto:elaloi.otmane@gmail.com" target="_blank">Contact me!</a>
+            </div>
+            <div class="fl-fl float-ig">
+                <i class="fa fa-instagram"></i>
+                <a href="" target="_blank">Follow me!</a>
+            </div>
+
+        </div>
+        <!-- Floating Social Media bar Ends -->
+    </section>
+
+    <section id="utils">
+        <!-- 9. Error -->
+        <div id="error" style="display: none;">
+            <p>⚠️ Command not found! Enter <i>help</i> to get list of all available commands..</p>
+        </div>
+
+        <div id="help" style="display: none;">
+            <div>
+                <br>
+                <ul>
+                    <!-- <li><strong>whois:</strong> View personal information</li> -->
+                    <li><i>education:</i> View education details</li>
+                    <li><i>experiences:</i> View work experiences</li>
+                    <!-- <li><strong>certifications:</strong> View certifications</li> -->
+                    <li><i>skills:</i> View skills</li>
+                    <li><i>languages:</i> View languages</li>
+                    <li><i>contacts:</i> View contact information</li>
+                    <li><i>clear:</i> Clear the terminal</li>
+                </ul>
+                <p> ❗ Press <i>Tab</i> => autocompletes the command</p>
+                <p> ❗ Press <i>⬆️ </i> => go back to previous command</p>
+                <p> ❗ Press <i>⬇️</i> => go back to next command</p>
+            </div>
+        </div>
+
+        <div id="experiences" , style="display: none;">
+            <div class="job">
+                <br>
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - La Poste</p>
+                <p>[06/2023 - present]</p>
+                <ul>
+                    <li>
+                        <span>Migration and optimization of Big Data pipelines for La Poste's finance domain </span>
+                        <ul>
+                            <li>Development of Spark/Scala data pipelines.</li>
+                            <li>Reduced data pipeline processing times on Spark/Scala from 5 hours to 30 minutes.</li>
+                            <li>Restructured pipeline orchestration on Airflow for improved visibility and greater flexibility in adding new data flows.</li>
+                            <li>Migrated data flows to Cloudera Data Engineering on Kubernetes, including codebase separation by usage, code migration, and Spark job configuration.</li>
+                            <li>Contributed to multiple data projects within the Finance domain.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - Daher</p>
+                <p>[10/2022 - 06/2023]</p>
+                <ul>
+                    <li>
+                    <span>Optimization of an Event-Driven data architecture for Daher's AVION branch</span>
+                        <ul>
+                            <li>Collaborated on reducing Azure data platform costs by 1/10.</li>
+                            <li>Improved operations and maintenance (Implemented a monitoring system for various data streams: Logging, Dashboards...)</li>
+                            <li>Migrated performance indicators (~150 algorithms) for flight data from Python to Pyspark.</li>
+                            <li>Implemented DevOps practices (Azure DevOps) on DataBricks (Development/Quality/Production environments, CI/CD, code modularization).</li>
+                            <li>Developed Azure Functions for the automatic generation of flight reports using flight tracking data stored in the Lakehouse platform.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - AS24</p>
+                <p>[05/2022 - 09/2022]</p>
+                <ul>
+                    <li>
+                        <span>Implementation of a serverless BI solution to track the evolution of Jira tickets created within the context of AS24's business support activities.</span>
+                        <ul>
+                            <li>Designed and implemented the serverless solution on Azure Cloud (Development and runtime costs ~$5/month).</li>
+                            <li>Developed ETL pipelines using Azure Functions (Time Triggered, Blob Triggered, Durable Functions, Azure SQL Database) to process Jira data.</li>
+                            <li>Designed a star schema model to facilitate data analysis.</li>
+                            <li>Created interactive visual reports using Power BI to assist users in making informed decisions.</li>
+                            <li>Utilized Azure DevOps and IaC with Terraform for developing and managing the solution, ensuring continuous delivery and maximum scalability.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Engineer</h4>
+                <p>Inetum - STG</p>
+                <p>[04/2022 - 05/2022]</p>
+                <ul>
+                    <li>
+                        <span>Implementation of a BI solution on Snowflake for managing STGS vehicle fleet.</span>
+                        <ul>
+                            <li>Developed data pipelines on Talend Open Studio and Snowflake.</li>
+                            <li>Implemented various data layers on Snowflake (Raw, Business Object, Data Marts).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h4> 💻 Data Scientist (Stage)</h4>
+                <p>ALL4TEC</p>
+                <p>[04/2021 - 08/2021]</p>
+                <ul>
+                    <li>
+                        <span>Processing and analyzing autonomous vehicle driving data.</span>
+                        <ul>
+                            <li>Extracted driving scenarios from real-world driving data.</li>
+                            <li>Recreated extracted scenarios within a simulation platform</li>
+                            <li>Generated alternative driving scenarios using statistical learning.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="skills" style="display: none;">
+            <br>
+            <ul>
+                <li><span>Data Architectures :</span> Data Lake, Data Warehouse, Data Lakehouse, Lambda</li>
+                <li><span>Cloud :</span> Azure</li>
+                <li><span>Plateformes Data Cloud :</span> Databricks, Cloudera, Snowflake</li>
+                <li><span>Base de données :</span> Relationnelles (PostgreSQL), NoSQL (Redis, MongoDB, CosmosDB)
+                </li>
+                <li><span>Big Data :</span> Hadoop (Hdfs/Hive), Spark(Scala/PySpark), Airflow</li>
+                <li><span>Streaming :</span> Kafka, Spark Streaming</li>
+                <li><span>Langages :</span> Python, SQL, Scala, R</li>
+                <li><span>DevOps :</span> Git, Docker, Ansible, Terraform, Jenkins, AWX, Kubernetes, Azure DevOps
+                </li>
+                <li><span>Visualization :</span> PowerBI, Python(Seaborn, Plotly, Dash, Matplotlib)</li>
+                <li><span>Web :</span> Flask, Streamlit, HTML/CSS/JS, ReactJs</li>
+                <li><span>Data Science :</span> ML, DL, NLP, Computer Vision</li>
+                </li>
+                <li><span>Management and Concepts :</span> Agile(Scrum), Design patterns</li>
+            </ul>
+        </div>
+        <div id="contacts" style="display: none;">
+            <br>
+            <ul>
+                <li><strong>LinkedIn :</strong> <a href=" https://www.linkedin.com/in/otmane-elaloi/">
+                        https://www.linkedin.com/in/otmane-elaloi/</a></li>
+                <li><strong>Email :</strong> <a href="mailto:elaloi.otmane@gmail.com">elaloi.otmane@gmail.com</a></li>
+            </ul>
+        </div>
+
+        <div id="languages" style="display: none;">
+            <br>
+            <ul>
+                <li><strong>English :</strong> Professional</li>
+                <li><strong>French : </strong> Bilingual</li>
+                <li><strong>Spanish :</strong> Notions</li>
+                <li><strong>Arabic : </strong> Native</li>
+            </ul>
+        </div>
+
+        <div id="education" style="display: none;">
+            <ul>
+                <li><span> 👨‍🎓 Ecole Centrale de Nantes - Engineering Degree - 2019-2022 - Nantes - France</span></li>
+                <p>Double Major: Data Science & Computer Science</p>
+                <li><span> 👨‍🎓 Lycée Technique Mohammedia - CPGE-MPSI-MP* - 2017-2019 </span></li>
+                <p>Preparatory classes for prestigious engineering schools. High-level academic training in mathematics, physics, and computer science.</p>
+            </ul>
+        </div>
+
+        <div id="clear" style="display: none;"></div>
+    </section>
+
+
+    <!-- Footer-->
+    <div id="footer-container">
+        <div class="copyright">
+            <h2>copyrights &copy; 2020-2021, <f>Otmane EL ALOI</f>.</h2>
+        </div>
+    </div>
+
+    <!-- End of footer-->
+
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

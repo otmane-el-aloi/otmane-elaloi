@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* 👇 This line makes `dark:` respond to `.dark` on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
