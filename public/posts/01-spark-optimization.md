@@ -2,7 +2,7 @@
 title: 5 Proven Techniques to Optimize Apache Spark Jobs
 slug: spark-optimization-guide
 date: 2025-08-15
-tags: [Spark, Performance, Big Data]
+tags: [Spark, Performance, Big Data, featured]
 published: true
 ---
 
