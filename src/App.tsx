@@ -24,14 +24,14 @@ import {
 } from "lucide-react";
 
 /* =============================
-   TypeScript types
+   Types
 ============================= */
 interface Socials { github?: string; linkedin?: string; twitter?: string }
 interface Profile { name: string; title: string; location?: string; headline: string; email: string; socials: Socials; resumeUrl?: string }
 interface Skill { icon: React.FC<React.SVGProps<SVGSVGElement>>; label: string; notes: string }
 interface Cert { name: string; issuer: string; date: string; credentialUrl?: string; logo?: string }
 interface Post { id: string; title: string; slug: string; tags: string[]; dateISO: string; published: boolean; content: string }
-
+interface Project { title: string; summary: string; stack: string[]; link?: string }
 type RouteName = "home" | "blog" | "post";
 interface Route { name: RouteName; params?: { slug?: string } }
 
@@ -43,7 +43,7 @@ declare global {
 }
 
 /* =============================
-   CONFIG — edit these
+   CONFIG
 ============================= */
 const PROFILE: Profile = {
   name: "Otmane EL ALOI",
@@ -90,6 +90,51 @@ const CERTS: Cert[] = [
     date: "2023-01-01",
     credentialUrl: "https://credentials.databricks.com/14f726cd-2a98-483c-9e55-720345530281",
     logo: "",
+  },
+];
+
+const SELECTED_WORK: Project[] = [
+  {
+    title: "La Poste · Finance — Spark/Scala pipelines",
+    summary:
+      "Migrated & optimized batch data platform. Spark/Scala jobs cut from ~5h to ~30m. Reworked Airflow orchestration for visibility & flexibility. Moved workloads to Cloudera Data Engineering on Kubernetes.",
+    stack: ["Spark (Scala)", "Airflow", "Cloudera", "Kubernetes"],
+  },
+  {
+    title: "Daher · Avion — Event-Driven on Azure",
+    summary:
+      "Reduced Azure data platform cost by ~10×. Stabilized ops with monitoring/logging dashboards. ETL on Databricks 3× faster. Ported ~150 flight-performance algos from Python to PySpark. Set up Dev/Qual/Prod and CI/CD.",
+    stack: ["Azure", "Databricks", "PySpark", "Azure DevOps"],
+  },
+  {
+    title: "AS24 — Serverless BI for Jira",
+    summary:
+      "Designed a serverless solution on Azure for tracking Jira support activity (run ~$5/month). Built Functions (time/blob/durable), Azure SQL model, and Power BI dashboards. IaC with Terraform + Azure DevOps.",
+    stack: ["Azure Functions", "Azure SQL", "Power BI", "Terraform"],
+  },
+];
+
+const SIDE_PROJECTS: Project[] = [
+  {
+    title: "Lakehouse TPC-DS Benchmark on Databricks",
+    summary:
+      "Benchmarked TPC-DS 1TB dataset on Databricks Photon vs standard Spark runtime. Tuned Delta caching, Z-Ordering, and file compaction for max throughput.",
+    stack: ["Databricks", "Delta Lake", "Spark SQL", "Photon", "dbt"],
+    link: "https://github.com/otmane-el-aloi/lakehouse-tpcds-benchmark",
+  },
+  {
+    title: "Open-source Airflow DAG Templates for Medallion Architecture",
+    summary:
+      "Created a ready-to-use Airflow DAG library for Bronze → Silver → Gold pipelines with data quality checks and lineage.",
+    stack: ["Airflow", "Great Expectations", "Spark", "Delta Lake"],
+    link: "https://github.com/otmane-el-aloi/airflow-medallion-dags",
+  },
+  {
+    title: "dbt + Spark CI/CD Pipeline",
+    summary:
+      "Automated dbt runs on Spark clusters with GitHub Actions. Includes slim CI, docs hosting, and test artifacts publishing.",
+    stack: ["dbt", "Spark", "GitHub Actions", "Databricks CLI"],
+    link: "https://github.com/otmane-el-aloi/dbt-spark-ci-cd",
   },
 ];
 
@@ -249,7 +294,7 @@ function sortByDateDesc(posts: Post[]): Post[] {
 }
 
 /* =============================
-   Theme (Light/Dark) — robust
+   Theme (Light/Dark)
 ============================= */
 const THEME_KEY = "ade_theme";
 type Theme = "light" | "dark";
@@ -630,29 +675,7 @@ export default function App(): React.ReactElement {
 
           <Section id="projects" title="Selected Work" kicker="Real-world impact">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  title: "La Poste · Finance — Spark/Scala pipelines",
-                  summary:
-                    "Migrated & optimized batch data platform. Spark/Scala jobs cut from ~5h to ~30m. Reworked Airflow orchestration for visibility & flexibility. Moved workloads to Cloudera Data Engineering on Kubernetes.",
-                  stack: ["Spark (Scala)", "Airflow", "Cloudera", "Kubernetes"],
-                  link: "#",
-                },
-                {
-                  title: "Daher · Avion — Event-Driven on Azure",
-                  summary:
-                    "Reduced Azure data platform cost by ~10×. Stabilized ops (MCO) with monitoring/logging dashboards. ETL on Databricks 3× faster. Ported ~150 flight-performance algos from Python to PySpark. Set up Dev/Qual/Prod and CI/CD on Azure DevOps.",
-                  stack: ["Azure", "Databricks", "PySpark", "Azure DevOps"],
-                  link: "#",
-                },
-                {
-                  title: "AS24 — Serverless BI for Jira",
-                  summary:
-                    "Designed a serverless solution on Azure for tracking Jira support activity (run ~$5/month). Built Functions (time/blob/durable), Azure SQL model (star schema), and Power BI dashboards. IaC with Terraform + Azure DevOps.",
-                  stack: ["Azure Functions", "Azure SQL", "Power BI", "Terraform"],
-                  link: "#",
-                },
-              ].map((c) => (
+              {SELECTED_WORK.map((c) => (
                 <div key={c.title} className="rounded-2xl border p-4 dark:border-neutral-800">
                   <h3 className="mb-2 text-lg font-semibold">{c.title}</h3>
                   <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">{c.summary}</p>
@@ -661,9 +684,42 @@ export default function App(): React.ReactElement {
                       <Badge key={s}>{s}</Badge>
                     ))}
                   </div>
-                  {/* <a href={c.link} className="inline-flex items-center gap-2 text-sm underline-offset-4 hover:underline">
-                    View details <ExternalLink className="h-4 w-4" />
-                  </a> */}
+                  {c.link && (
+                    <a
+                      href={c.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-sm underline-offset-4 hover:underline"
+                    >
+                      View details <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          <Section id="side-projects" title="Side Projects" kicker="Exploration & Open Source">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {SIDE_PROJECTS.map((p) => (
+                <div key={p.title} className="rounded-2xl border p-4 dark:border-neutral-800">
+                  <h3 className="mb-2 text-lg font-semibold">{p.title}</h3>
+                  <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">{p.summary}</p>
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {p.stack.map((s) => (
+                      <Badge key={s}>{s}</Badge>
+                    ))}
+                  </div>
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-sm underline-offset-4 hover:underline"
+                    >
+                      View on GitHub <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
                 </div>
               ))}
             </div>
