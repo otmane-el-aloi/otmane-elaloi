@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import React, { useEffect, useMemo, useState } from "react";
-import { Github, Linkedin, Mail, Moon, Sun, ExternalLink, ArrowRight, Download, Home, Rocket, Award, BookOpen } from "lucide-react";
+import { Github, Linkedin, Mail, Moon, Sun, ExternalLink, ArrowRight, Download, Home, Rocket, PersonStanding, Award, BookOpen, Database } from "lucide-react";
 import { PROFILE, SKILLS, CERTS, SELECTED_WORK, SIDE_PROJECTS } from "./config";
 import type { Post, Route, RouteName } from "./types";
 import { loadPosts, sortByDateDesc } from "./lib/blog";
@@ -54,7 +54,7 @@ export default function App(): React.ReactElement {
       <header className="sticky top-0 z-40 border-b bg-white/70 backdrop-blur dark:border-neutral-900 dark:bg-neutral-950/60">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <button onClick={() => navigate("home")} className="flex items-center gap-2 text-sm font-semibold">
-            <Rocket className="h-5 w-5" /> {PROFILE.name}
+            <PersonStanding className="h-5 w-5" /> {PROFILE.name}
           </button>
           <nav className="hidden gap-6 sm:flex">
             <a href="#services" onClick={(e) => { e.preventDefault(); navigate("home"); setTimeout(() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" }), 0); }} className="text-sm">Collaborate</a>
@@ -187,7 +187,7 @@ export default function App(): React.ReactElement {
           </Section>
 
           <Section id="contact" title="Contact" kicker="Let’s work together">
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-1">
               <div className="rounded-2xl border p-6 dark:border-neutral-800">
                 <h3 className="mb-2 text-lg font-semibold">Get in touch</h3>
                 <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">Send a quick note about your data stack and goals. I’ll reply within 24h.</p>
@@ -196,16 +196,6 @@ export default function App(): React.ReactElement {
                   <a href={PROFILE.socials.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 underline-offset-4 hover:underline"><img src="" alt="" /> <Linkedin className="h-4 w-4" /> LinkedIn</a>
                   <a href={PROFILE.socials.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 underline-offset-4 hover:underline"><Github className="h-4 w-4" /> GitHub</a>
                 </div>
-              </div>
-              <div className="rounded-2xl border p-6 dark:border-neutral-800">
-                <h3 className="mb-2 text-lg font-semibold">Typical stack</h3>
-                <ul className="list-disc pl-5 text-sm text-neutral-700 dark:text-neutral-300">
-                  <li>Azure: ADLS, Databricks, Functions/ADF, Synapse</li>
-                  <li>Spark (Scala/PySpark) with Airflow orchestration</li>
-                  <li>dbt for transforms + tests + docs</li>
-                  <li>Power BI for BI/semantic models</li>
-                  <li>Terraform + Azure DevOps for IaC/CI/CD</li>
-                </ul>
               </div>
             </div>
           </Section>

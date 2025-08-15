@@ -55,7 +55,6 @@ function normalizePost(p: Partial<Post>): Post {
     dateISO: (p as any).date || p.dateISO || new Date().toISOString(),
     published: coercePublished(p.published),
     content: p.content || "",
-    featured: Boolean((p as any).featured),
   };
 }
 
@@ -119,7 +118,7 @@ export const sortByDateDesc = (posts: Post[]) =>
 
 export function pickFeaturedPost(posts: Post[]): Post | null {
   if (!posts?.length) return null;
-  const flagged = posts.find((p) => p.featured && p.published !== false);
+  const flagged = posts.find((p) => p.published !== false);
   if (flagged) return flagged;
   const tagged = posts.find(
     (p) => p.published !== false && (p.tags || []).some((t) => t.toLowerCase() === "featured")
