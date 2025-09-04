@@ -1,13 +1,23 @@
-// src/config.ts
 import type { Profile, Skill, Cert, Project, Post } from "./types";
 import { Database, Workflow, CheckCircle2, Rocket, Award } from "lucide-react";
+
+export const FEATURES = {
+  blogBanner: false,
+  BlogSpotlight: true,
+  skills: true,
+  certs: true,
+  services: false,
+  selectedWork: false,
+  sideProjects: false,
+  blog: true,
+};
 
 export const PROFILE: Profile = {
   name: "Otmane EL ALOI",
   title: "Data Guy",
   location: "Paris, FR",
   headline:
-    "Hi 👋, I’m a Senior Data Engineer building reliable, scalable, and cost-efficient data platforms across diverse domains — from accounting and financial control to aviation analytics and oil industry operations. My core expertise is data engineering, strengthened by a background in data science and MLOps. And while you’re reading this, I’m probably learning something new.",
+    "Hi 👋, I’m a Data Engineer building reliable, scalable, and cost-efficient data platforms across diverse domains. My core expertise is data engineering, strengthened by a background in data science and MLOps. And while you’re reading this, I’m probably learning something new. I am currently working as Data Engineer at TotalEnergies Digital Factory",
   email: "elaloi.otmane@gmail.com",
   socials: {
     github: "https://github.com/otmane-el-aloi",
