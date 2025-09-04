@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@giscus/react": "^3.1.0",
     "@tailwindcss/cli": "^4.1.12",
     "framer-motion": "^12.23.12",
+    "giscus": "^1.6.0",
     "lucide-react": "^0.539.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

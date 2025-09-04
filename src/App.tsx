@@ -27,6 +27,7 @@ import BlogSpotlight from "./components/blog/BlogSpotlight";
 import BlogCinemaBanner from "./components/blog/BlogCinemaBanner";
 import { motion } from "framer-motion";
 import { listContainer, listItem } from "./lib/motion";
+import Comments from "./components/blog/Comments";
 
 function formatMonth(dateISO: string): string {
   try {
@@ -461,13 +462,17 @@ export default function App(): React.ReactElement {
         </main>
       )}
 
+      {/* BLOG POSTS */}
       {route.name === "post" && (
         <main className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
           <div className="mb-4 flex items-center gap-2">
             <Button onClick={() => navigate("blog")}>Back</Button>
           </div>
           {currentPost ? (
-            <BlogPost post={currentPost} onBack={() => navigate("blog")} />
+            <>
+              <BlogPost post={currentPost} onBack={() => navigate("blog")} />
+              <Comments slug={currentPost.slug} theme={theme} />
+            </>
           ) : (
             <article className="rounded-2xl border p-6 text-sm dark:border-neutral-800">
               <h1 className="mb-2 text-xl font-semibold">Post not found</h1>
