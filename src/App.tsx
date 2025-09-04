@@ -41,7 +41,10 @@ function formatMonth(dateISO: string): string {
 
 export default function App(): React.ReactElement {
   const [theme, setTheme] = useTheme();
-  const [route, setRoute] = useState<Route>({ name: "home" });
+  const [route, setRoute] = useState<Route>(() => {
+    const stored = localStorage.getItem("route");
+    return stored ? JSON.parse(stored) : { name: "home" };
+  });
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
@@ -69,7 +72,9 @@ export default function App(): React.ReactElement {
   const latestPosts = useMemo(() => posts.slice(0, 3), [posts]);
 
   const navigate = useCallback((name: RouteName, params?: Route["params"]) => {
-    setRoute({ name, params });
+    const newRoute = { name, params };
+    setRoute(newRoute);
+    localStorage.setItem("route", JSON.stringify(newRoute));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
