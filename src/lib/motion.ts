@@ -1,14 +1,31 @@
-export const sectionVariants = {
+import type { Variants } from "framer-motion";
+
+export const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
 };
 
-export const listContainer = {
+export const listContainer: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
 };
 
-export const listItem = {
+export const listItem: Variants = {
   hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35 },
+  },
 };

@@ -1,8 +1,7 @@
-import React from "react";
 import Giscus from "@giscus/react";
 
 type CommentsProps = {
-  slug: string;           // your post.slug
+  slug: string;           // post.slug
   theme: "light" | "dark";
 };
 

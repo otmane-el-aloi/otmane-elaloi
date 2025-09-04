@@ -1,4 +1,4 @@
-import type { Profile, Skill, Cert, Project, Post } from "./types";
+import type { Profile, Skill, Cert, Project } from "./types";
 import { Database, Workflow, CheckCircle2, Rocket, Award } from "lucide-react";
 
 export const FEATURES = {
