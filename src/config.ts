@@ -14,7 +14,7 @@ export const FEATURES = {
 
 export const PROFILE: Profile = {
   name: "Otmane EL ALOI",
-  title: "Data Guy",
+  title: "Another Data Guy",
   location: "Paris, FR",
   headline:
     "Hi 👋, I’m a Data Engineer building reliable, scalable, and cost-efficient data platforms across diverse domains. My core expertise is data engineering, strengthened by a background in data science and MLOps. And while you’re reading this, I’m probably learning something new. I am currently working as Data Engineer at TotalEnergies Digital Factory",

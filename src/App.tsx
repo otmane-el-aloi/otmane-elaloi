@@ -165,18 +165,31 @@ export default function App(): React.ReactElement {
                 href={PROFILE.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white text-blue-700 hover:bg-blue-50 border-blue-200"
+                className={
+                  theme === "dark"
+                    ? "bg-white text-blue-700 hover:bg-blue-50 border-blue-200"
+                    : "bg-blue-700 text-blue-700 border-neutral-700"
+                }
               >
                 <Download className="h-4 w-4" /> Resume
               </Button>
             )}
-            <Button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-              className="bg-white text-blue-700 hover:bg-blue-50 border-blue-200"
-            >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
+              <Button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                aria-label="Toggle theme"
+                className={
+                  theme === "dark"
+                    ? "bg-white text-blue-700 hover:bg-blue-50 border-blue-200"
+                    : "bg-blue-700 text-blue-700 border-neutral-700"
+                }
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </Button>
+
           </div>
         </div>
       </header>
