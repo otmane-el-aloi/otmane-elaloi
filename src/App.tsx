@@ -107,6 +107,7 @@ export default function App(): React.ReactElement {
             <PersonStanding className="h-5 w-5" /> {PROFILE.name}
           </button>
           <nav className="hidden gap-6 sm:flex" aria-label="Primary">
+            {FEATURES.services && (
             <a
               href="#services"
               onClick={(e) => {
@@ -116,7 +117,8 @@ export default function App(): React.ReactElement {
               className="text-sm"
             >
               Collaborate
-            </a>
+            </a>)}
+            {FEATURES.sideProjects && (
             <a
               href="#projects"
               onClick={(e) => {
@@ -126,7 +128,8 @@ export default function App(): React.ReactElement {
               className="text-sm"
             >
               Projects
-            </a>
+            </a>)}
+            {FEATURES.certs && (
             <a
               href="#certs"
               onClick={(e) => {
@@ -136,7 +139,8 @@ export default function App(): React.ReactElement {
               className="text-sm"
             >
               Certifications
-            </a>
+            </a>)}
+            {FEATURES.blog && (
             <a
               href="#blog"
               onClick={(e) => {
@@ -146,7 +150,7 @@ export default function App(): React.ReactElement {
               className="text-sm"
             >
               Blog
-            </a>
+            </a>)}
             <a
               href="#contact"
               onClick={(e) => {
