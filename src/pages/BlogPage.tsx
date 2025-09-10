@@ -1,5 +1,3 @@
-// src/pages/BlogIndexPage.tsx
-import React from "react";
 import Button from "../components/ui/Button";
 import BlogList from "../components/blog/BlogList";
 import type { Post, RouteName, Route } from "../types";

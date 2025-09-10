@@ -1,5 +1,3 @@
-// src/pages/HomePage.tsx
-import React from "react";
 import { motion } from "framer-motion";
 import { FEATURES, PROFILE, SKILLS, CERTS, SELECTED_WORK, SIDE_PROJECTS } from "../config";
 import Section from "../components/ui/Section";
