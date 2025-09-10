@@ -138,7 +138,7 @@ async function ensureMermaid() {
       const dark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ?? false;
       m.default.initialize({
         startOnLoad: false,
-        securityLevel: "loose", // set to 'strict' if you prefer
+        securityLevel: "loose",
         theme: dark ? "dark" : "default",
       });
       // auto-switch on system theme change
@@ -177,7 +177,7 @@ function upgradeMermaidBlocks(root: ParentNode): HTMLElement[] {
   return out;
 }
 
-/** Render Mermaid diagrams inside the given container AFTER your markdown is mounted */
+/** Render Mermaid diagrams inside the given container AFTER markdown is mounted */
 export async function renderMermaid(container: HTMLElement | null) {
   if (!container) return;
   const targets = upgradeMermaidBlocks(container);

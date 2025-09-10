@@ -249,7 +249,7 @@ export default function HomePage({
           <div className="rounded-2xl border p-6 dark:border-neutral-800">
             <h3 className="mb-2 text-lg font-semibold">Get in touch</h3>
             <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-300">
-              Send a quick note about your data stack and goals. I’ll reply within 24h.
+              Send a quick note. I’ll reply within 24h. ;)
             </p>
             <div className="flex flex-col gap-3 text-sm">
               <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center gap-2 underline-offset-4 hover:underline">
