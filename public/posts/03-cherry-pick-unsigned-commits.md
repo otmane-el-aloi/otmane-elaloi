@@ -67,8 +67,7 @@ git cherry-pick -S origin/main..feat/non-signed-branch
 git push -u origin fix/fix-signatures
 ```
 
-This reapplies all commits from your feature branch onto a clean branch, but with signing.Visual Summary
-
+This reapplies all commits from feature branch onto a clean branch (with signing), but with signing.
 ---
 
 ## Wrapping up
