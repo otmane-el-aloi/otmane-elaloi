@@ -1,4 +1,5 @@
 [  
   { "path": "/posts/01-void-data-type-problem-pyspark.md" },
-  { "path": "/posts/02-jinja-yaml-for-databricks-bundles.md" }
+  { "path": "/posts/02-jinja-yaml-for-databricks-bundles.md" },
+  { "path": "/posts/03-cherry-pick-unsigned-commits.md" }
 ]

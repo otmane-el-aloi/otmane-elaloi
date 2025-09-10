@@ -128,3 +128,76 @@ export function pickFeaturedPost(posts: Post[]): Post | null {
     .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
   return tagged || publishedSorted[0] || null;
 }
+
+
+let __mermaidInit: Promise<typeof import("mermaid")> | null = null;
+
+async function ensureMermaid() {
+  if (!__mermaidInit) {
+    __mermaidInit = import("mermaid").then((m) => {
+      const dark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ?? false;
+      m.default.initialize({
+        startOnLoad: false,
+        securityLevel: "loose", // set to 'strict' if you prefer
+        theme: dark ? "dark" : "default",
+      });
+      // auto-switch on system theme change
+      try {
+        const mq = window.matchMedia("(prefers-color-scheme: dark)");
+        mq.addEventListener?.("change", () =>
+          m.default.initialize({ startOnLoad: false, theme: mq.matches ? "dark" : "default" })
+        );
+      } catch {}
+      return m;
+    });
+  }
+  return __mermaidInit;
+}
+
+/** Convert ```mermaid code blocks into <div class="mermaid"> placeholders */
+function upgradeMermaidBlocks(root: ParentNode): HTMLElement[] {
+  const codeBlocks = Array.from(
+    root.querySelectorAll<HTMLElement>(
+      'pre > code.language-mermaid, pre > code[class*="language-mermaid"], code.mermaid'
+    )
+  );
+  const out: HTMLElement[] = [];
+  for (const code of codeBlocks) {
+    const pre = code.parentElement?.tagName.toLowerCase() === "pre" ? code.parentElement! : code;
+    const div = document.createElement("div");
+    div.className = "mermaid";
+    div.textContent = code.textContent ?? "";
+    pre.replaceWith(div);
+    out.push(div);
+  }
+  // also include any existing <div class="mermaid">
+  for (const el of Array.from(root.querySelectorAll<HTMLElement>("div.mermaid"))) {
+    if (!out.includes(el)) out.push(el);
+  }
+  return out;
+}
+
+/** Render Mermaid diagrams inside the given container AFTER your markdown is mounted */
+export async function renderMermaid(container: HTMLElement | null) {
+  if (!container) return;
+  const targets = upgradeMermaidBlocks(container);
+  if (!targets.length) return;
+
+  const mermaid = await ensureMermaid();
+
+  await Promise.all(
+    targets.map(async (el, i) => {
+      try {
+        const id = `mmd-${Date.now().toString(36)}-${i}`;
+        const src = el.textContent || "";
+        const { svg } = await mermaid.default.render(id, src);
+        el.innerHTML = svg;
+      } catch {
+        // fall back to showing the text as a <pre>
+        const pre = document.createElement("pre");
+        pre.textContent = (el.textContent || "").trim();
+        el.replaceWith(pre);
+      }
+    })
+  );
+}
