@@ -33,7 +33,7 @@ jobs:
 
       - name: Build site
         env:
-          # Ensures Vite serves under /<repo-name>/ for GitHub Pages
+          # Vite serves under /otmane-elaloi/ for GitHub Pages
           BASE_PATH: /${{ github.event.repository.name }}/
           # If you use the optional RSS/sitemap scripts, they pick this up
           SITE_BASE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/

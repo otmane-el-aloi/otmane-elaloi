@@ -68,6 +68,7 @@ git push -u origin fix/fix-signatures
 ```
 
 This reapplies all commits from feature branch onto a clean branch (with signing), but with signing.
+
 ---
 
 ## Wrapping up
