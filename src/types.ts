@@ -1,4 +1,3 @@
-// src/types.ts
 import React from "react";
 
 /* Core shared types */
@@ -53,4 +52,6 @@ export interface Post {
   dateISO: string;
   published: boolean;
   content: string;
+  source?: "local" | "medium" | "external";
+  url?: string;
 }

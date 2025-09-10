@@ -40,6 +40,14 @@ function parseFrontMatter(raw: string): { data: Record<string, any>; content: st
   return { data, content };
 }
 
+function sourceFromUrl(u?: string): "medium" | "external" | "local" {
+  if (!u) return "local";
+  try {
+    const host = new URL(u).hostname.toLowerCase();
+    return host.includes("medium.com") ? "medium" : "external";
+  } catch { return "external"; }
+}
+
 function normalizePost(p: Partial<Post>): Post {
   const slug =
     p.slug ||
@@ -55,6 +63,8 @@ function normalizePost(p: Partial<Post>): Post {
     dateISO: (p as any).date || p.dateISO || new Date().toISOString(),
     published: coercePublished(p.published),
     content: p.content || "",
+    source: p.source || sourceFromUrl(p.url),
+    url: p.url,
   };
 }
 
@@ -93,6 +103,18 @@ export async function loadPosts(): Promise<Post[]> {
           const { data, content } = parseFrontMatter(raw);
           out.push(normalizePost({ ...data, content }));
         }
+      } else if (item.url) {
+        // 👇 url-only link-post
+        out.push(normalizePost({
+          title: item.title,
+          url: item.url,
+          tags: item.tags,
+          published: item.published !== false,
+          dateISO: item.date || item.dateISO,
+          slug: item.slug,            
+          source: item.source || sourceFromUrl(item.url),
+          content: "",
+        }));
       }
     }
     return out
