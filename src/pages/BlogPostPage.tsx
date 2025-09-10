@@ -1,10 +1,9 @@
-// src/pages/BlogPostPage.tsx
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Button from "../components/ui/Button";
 import BlogPost from "../components/blog/BlogPost";
 import Comments from "../components/blog/Comments";
 import type { Post, RouteName, Route } from "../types";
-import { renderMermaid } from "../lib/blog"; // ⬅️ new import
+import { renderMermaid } from "../lib/blog";
 
 export default function BlogPostPage({
   currentPost,
