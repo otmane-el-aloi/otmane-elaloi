@@ -13,13 +13,26 @@ import HomePage from "./pages/HomePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 
+
+const isValidRoute = (r: any): r is Route => {
+  if (!r || typeof r !== "object") return false;
+  if (!["home", "blog", "post"].includes(r.name)) return false;
+  if (r.name === "post" && (!r.params || typeof r.params.slug !== "string")) return false;
+  return true;
+};
+
 export default function App(): React.ReactElement {
   const [theme, setTheme] = useTheme();
 
   // SIMPLE IN-MEMORY ROUTER (unchanged)
   const [route, setRoute] = useState<Route>(() => {
-    const stored = localStorage.getItem("route");
-    return stored ? JSON.parse(stored) : { name: "home" };
+    try {
+      const stored = localStorage.getItem("route");
+      const parsed = stored ? JSON.parse(stored) : null;
+      return isValidRoute(parsed) ? parsed : { name: "home" };
+    } catch {
+      return { name: "home" };
+    }
   });
 
   const [posts, setPosts] = useState<Post[]>([]);
