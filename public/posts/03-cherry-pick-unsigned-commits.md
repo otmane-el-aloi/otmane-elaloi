@@ -31,6 +31,15 @@ cdef345 feat: databricks bundles migration Signed
 
 That one unsigned commit (`bcde234`) was blocking my merge.
 
+```mermaid
+gitGraph
+   commit id: "cdef345" tag: "verified"
+   branch feat/non-signed-branch
+   commit id: "bcde234 ❌"
+   commit id: "abcd123 ✅ " tag: "verified"
+   checkout main
+```
+
 ---
 
 ## Way 1: Cherry-Pick Commit by Commit
@@ -69,11 +78,6 @@ git push -u origin fix/fix-signatures
 
 This reapplies all commits from feature branch onto a clean branch (with signing), but with signing.
 
----
-
-## Wrapping up
-
-
 ```mermaid
 gitGraph
    commit id: "cdef345" tag: "verified"
@@ -86,6 +90,10 @@ gitGraph
    commit id: "bcde234 ✅" tag: "verified"
    commit id: "abcd123 ✅" tag: "verified"
 ```
+
+---
+
+## Wrapping up
 
 That’s it — cherry-pick turned out to be the easiest way for me to recover from unsigned commits.
 
