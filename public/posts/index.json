@@ -1,12 +1,13 @@
 [  
-  { "path": "/posts/01-void-data-type-problem-pyspark.md" },
-  { "path": "/posts/02-jinja-yaml-for-databricks-bundles.md" },
-  { "path": "/posts/03-cherry-pick-unsigned-commits.md" },
   {
     "title": "Game of Thrones - Who is most likely to die?",
     "url": "https://elaloi-otmane.medium.com/game-of-thrones-who-is-most-likely-to-die-b28a3916d80e",
     "tags": ["featured", "tv", "analysis"],
     "published": true,
     "dateISO": "2021-08-02"
-  }
+  },
+  { "path": "/posts/01-void-data-type-problem-pyspark.md" },
+  { "path": "/posts/02-jinja-yaml-for-databricks-bundles.md" },
+  { "path": "/posts/03-cherry-pick-unsigned-commits.md" },
+  { "path": "/posts/04-unit-testing-pyspark-jobs.md"}
 ]
