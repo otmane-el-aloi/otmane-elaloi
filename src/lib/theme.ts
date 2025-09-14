@@ -9,10 +9,7 @@ export function useTheme(): [Theme, React.Dispatch<React.SetStateAction<Theme>>]
       const saved = localStorage.getItem(THEME_KEY) as Theme | null;
       if (saved === "light" || saved === "dark") return saved;
     } catch {}
-    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
+    return "dark";
   };
 
   const [theme, setTheme] = useState<Theme>(getInitial);
