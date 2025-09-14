@@ -1,45 +1,29 @@
 /// <reference types="vite/client" />
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PersonStanding, Download, Sun, Moon } from "lucide-react";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { FEATURES, PROFILE } from "./config";
-import type { Post, Route, RouteName } from "./types";
+import type { Post, Route as AppRoute, RouteName } from "./types";
 import { loadPosts, sortByDateDesc } from "./lib/blog";
 import { useTheme } from "./lib/theme";
 import Button from "./components/ui/Button";
 import BlogCinemaBanner from "./components/blog/BlogCinemaBanner";
 
-// NEW: pages
+// pages
 import HomePage from "./pages/HomePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 
-
-const isValidRoute = (r: any): r is Route => {
-  if (!r || typeof r !== "object") return false;
-  if (!["home", "blog", "post"].includes(r.name)) return false;
-  if (r.name === "post" && (!r.params || typeof r.params.slug !== "string")) return false;
-  return true;
-};
-
 export default function App(): React.ReactElement {
   const [theme, setTheme] = useTheme();
+  const navigate = useNavigate();
 
-  // SIMPLE IN-MEMORY ROUTER (unchanged)
-  const [route, setRoute] = useState<Route>(() => {
-    try {
-      const stored = localStorage.getItem("route");
-      const parsed = stored ? JSON.parse(stored) : null;
-      return isValidRoute(parsed) ? parsed : { name: "home" };
-    } catch {
-      return { name: "home" };
-    }
-  });
-
+  // posts + search
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
 
-  // Load posts (with unmount guard)
+  // load posts
   useEffect(() => {
     let active = true;
     (async () => {
@@ -48,7 +32,6 @@ export default function App(): React.ReactElement {
         if (!active) return;
         setPosts(sortByDateDesc(loaded));
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.error("Failed to load posts:", e);
       } finally {
         if (active) setLoading(false);
@@ -61,24 +44,10 @@ export default function App(): React.ReactElement {
 
   const latestPosts = useMemo(() => posts.slice(0, 3), [posts]);
 
-  const navigate = useCallback((name: RouteName, params?: Route["params"]) => {
-    const newRoute = { name, params };
-    setRoute(newRoute);
-    localStorage.setItem("route", JSON.stringify(newRoute));
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  const currentPost = useMemo(() => {
-    if (route.name !== "post") return null;
-    const slug = route.params?.slug;
-    return posts.find((p) => p.slug === slug) || null;
-  }, [route, posts]);
-
-  // Helpers to scroll to in-page sections from the nav
+  // keep your helper for smooth scroll (works the same)
   const goHomeAndScrollTo = useCallback(
     (id: string) => {
-      navigate("home");
-      // Defer until layout paints
+      navigate("/home");
       requestAnimationFrame(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       });
@@ -86,18 +55,27 @@ export default function App(): React.ReactElement {
     [navigate]
   );
 
+  // tiny wrapper to keep your old signature if you still call navigate("post", { slug })
+  const navigateOld = useCallback((name: RouteName, params?: AppRoute["params"]) => {
+    if (name === "home") navigate("/home");
+    else if (name === "blog") navigate("/blog");
+    else if (name === "post") navigate(`/blog/${params?.slug ?? ""}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [navigate]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 text-neutral-900 dark:from-neutral-950 dark:to-neutral-900 dark:text-neutral-50">
       {/* NAV */}
       <header className="sticky top-0 z-40 border-b bg-white/70 backdrop-blur dark:border-neutral-900 dark:bg-neutral-950/60">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <button
-            onClick={() => navigate("home")}
+          <Link
+            to="/home"
             className="flex items-center gap-2 text-sm font-semibold"
             aria-label="Go to homepage"
           >
             <PersonStanding className="h-5 w-5" /> {PROFILE.name}
-          </button>
+          </Link>
+
           <nav className="hidden gap-6 sm:flex" aria-label="Primary">
             {FEATURES.services && (
               <a
@@ -136,16 +114,9 @@ export default function App(): React.ReactElement {
               </a>
             )}
             {FEATURES.blog && (
-              <a
-                href="#blog"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("blog");
-                }}
-                className="text-sm"
-              >
+              <Link to="/blog" className="text-sm">
                 Blog
-              </a>
+              </Link>
             )}
             <a
               href="#contact"
@@ -158,6 +129,7 @@ export default function App(): React.ReactElement {
               Contact
             </a>
           </nav>
+
           <div className="flex items-center gap-2">
             {PROFILE.resumeUrl && PROFILE.resumeUrl !== "#" && (
               <Button
@@ -190,26 +162,37 @@ export default function App(): React.ReactElement {
       </header>
 
       {/* Floating blog banner */}
-      <BlogCinemaBanner posts={posts} onPick={(slug) => navigate("post", { slug })} show={route.name !== "post"} />
+      <BlogCinemaBanner posts={posts} onPick={(slug) => navigate(`/blog/${slug}`)} show />
 
-      {/* PAGES */}
-      {route.name === "home" && (
-        <HomePage posts={posts} latestPosts={latestPosts} navigate={navigate} />
-      )}
-
-      {route.name === "blog" && (
-        <BlogPage
-          posts={posts}
-          loading={loading}
-          query={query}
-          setQuery={setQuery}
-          navigate={navigate}
+      {/* ROUTES */}
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />}
         />
-      )}
-
-      {route.name === "post" && (
-        <BlogPostPage currentPost={currentPost} theme={theme} navigate={navigate} />
-      )}
+        <Route
+          path="/home"
+          element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />}
+        />
+        <Route
+          path="/blog"
+          element={
+            <BlogPage
+              posts={posts}
+              loading={loading}
+              query={query}
+              setQuery={setQuery}
+              navigate={navigateOld}
+            />
+          }
+        />
+        <Route
+          path="/blog/:slug"
+          element={<BlogPostPage theme={theme} posts={posts} />} // see tiny change below
+        />
+        {/* fallback */}
+        <Route path="*" element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />} />
+      </Routes>
 
       {/* FOOTER */}
       <footer className="mt-16 border-t py-8 text-center text-sm text-neutral-500 dark:border-neutral-900">

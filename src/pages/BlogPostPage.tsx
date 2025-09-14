@@ -1,20 +1,23 @@
 import { useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import BlogPost from "../components/blog/BlogPost";
 import Comments from "../components/blog/Comments";
-import type { Post, RouteName, Route } from "../types";
+import type { Post } from "../types";
 import { renderMermaid } from "../lib/blog";
 
 export default function BlogPostPage({
-  currentPost,
+  posts,
   theme,
-  navigate,
 }: {
-  currentPost: Post | null;
+  posts: Post[];
   theme: "light" | "dark";
-  navigate: (name: RouteName, params?: Route["params"]) => void;
 }) {
+  const { slug } = useParams();
+  const navigate = useNavigate();
   const postRef = useRef<HTMLDivElement>(null);
+
+  const currentPost = posts.find((p) => p.slug === slug) || null;
 
   useEffect(() => {
     renderMermaid(postRef.current);
@@ -22,13 +25,9 @@ export default function BlogPostPage({
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
-      <div className="mb-4 flex items-center gap-2">
-        <Button onClick={() => navigate("blog")}>Back</Button>
-      </div>
-
       {currentPost ? (
         <div ref={postRef}>
-          <BlogPost post={currentPost} onBack={() => navigate("blog")} />
+          <BlogPost post={currentPost} onBack={() => navigate("/blog")} />
           <Comments slug={currentPost.slug} theme={theme} />
         </div>
       ) : (
@@ -37,7 +36,7 @@ export default function BlogPostPage({
           <p className="mb-4 text-neutral-600 dark:text-neutral-300">
             The article you’re looking for doesn’t exist or has been moved.
           </p>
-          <Button onClick={() => navigate("blog")}>Back to Blog</Button>
+          <Button onClick={() => navigate("/blog")}>Back to Blog</Button>
         </article>
       )}
     </main>
