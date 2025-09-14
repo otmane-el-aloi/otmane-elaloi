@@ -1,4 +1,5 @@
 import { ArrowRight, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Post } from "../../types";
 
 function isFeatured(p: any): boolean {
@@ -126,17 +127,9 @@ export default function BlogSpotlight({
 
         {onViewAll && (
           <div className="mt-6">
-            <a
-              href="#blog"
-              onClick={(e) => {
-                e.preventDefault();
-                onViewAll?.();
-              }}
-              className="inline-flex items-center gap-2 text-sm underline-offset-4 hover:underline text-blue-700 dark:text-blue-300"
-            >
-              Explore all posts
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            <Link to="/blog" onClick={() => onViewAll?.()} className="inline-flex items-center gap-2 text-sm underline-offset-4 hover:underline text-blue-700 dark:text-blue-300">
+              Explore all posts <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         )}
       </div>
