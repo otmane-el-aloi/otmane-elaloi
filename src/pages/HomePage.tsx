@@ -34,7 +34,20 @@ export default function HomePage({
           <Button as="a" href={`mailto:${PROFILE.email}`}>
             <Mail className="h-4 w-4" /> Contact me
           </Button>
-          <Button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}>
+          <Button
+            as={FEATURES.services ? undefined : "a"}
+            href={
+              FEATURES.services
+                ? undefined
+                : `mailto:${PROFILE.email}?subject=${encodeURIComponent("Collaboration inquiry")}`
+            }
+            rel={FEATURES.services ? undefined : "noopener noreferrer"}
+            onClick={
+              FEATURES.services
+                ? () => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+                : undefined
+            }
+          >
             Let&apos;s collaborate <ArrowRight className="h-4 w-4" />
           </Button>
           <a
