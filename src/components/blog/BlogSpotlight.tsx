@@ -7,6 +7,14 @@ function isFeatured(p: any): boolean {
   return Array.isArray(p?.tags) && p.tags.some((t: string) => t?.toLowerCase() === "featured");
 }
 
+// is the post "new" (published within last 10 days)?
+function isNew(p: any): boolean {
+  const TEN_DAYS = 10 * 24 * 60 * 60 * 1000;
+  const d = new Date(p?.dateISO ?? 0).getTime();
+  if (!Number.isFinite(d)) return false;
+  return Date.now() - d <= TEN_DAYS;
+}
+
 export default function BlogSpotlight({
   posts,
   onOpen,
@@ -52,11 +60,28 @@ export default function BlogSpotlight({
             <article
               key={p.id}
               className="
-                flex flex-col justify-between rounded-xl border p-5
+                relative flex flex-col justify-between rounded-xl border p-5
                 bg-white/60 border-neutral-200
                 dark:bg-black/30 dark:border-neutral-800
               "
             >
+              {/* NEW badge for < 10 days old */}
+              {isNew(p) && (
+                <>
+                  {/* corner NEW chip */}
+                  <span
+                    aria-label="New post"
+                    className="
+                      absolute -top-2 -right-2 z-10 select-none rounded-full bg-pink-600
+                      px-2 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white shadow-lg
+                      ring-2 ring-white/60 dark:ring-black/40
+                    "
+                  >
+                    New
+                  </span>
+                </>
+              )}
+
               <div>
                 <div className="mb-2 text-xs text-neutral-600 dark:text-neutral-400">
                   {new Date(p.dateISO).toLocaleDateString()}
