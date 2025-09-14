@@ -2,22 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link
-  rel="icon"
-  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤗</text></svg>"
-/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Otmane EL ALOI Realm</title>
-  </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TPDM0JFCKZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  gtag('config', 'G-TPDM0JFCKZ');
-</script>
+    <title>DataRealm – Otmane EL ALOI</title>
+    <meta name="description" content="Notes, articles, and experiments on Data Engineering, cloud, and AI by Otmane EL ALOI." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://datarealm.blog/" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤗</text></svg>"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://datarealm.blog/" />
+    <meta property="og:title" content="DataRealm – Otmane EL ALOI" />
+    <meta property="og:description" content="Data Engineering, cloud, and AI notes & articles." />
+    <!-- <meta property="og:image" content="https://datarealm.blog/og-image.jpg" /> -->
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DataRealm – Otmane EL ALOI" />
+    <meta name="twitter:description" content="Data Engineering, cloud, and AI notes & articles." />
+    <!-- <meta name="twitter:image" content="https://datarealm.blog/og-image.jpg" /> -->
+
+    <!-- JSON-LD (Website) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DataRealm",
+      "url": "https://datarealm.blog/",
+      "publisher": {
+        "@type": "Person",
+        "name": "Otmane EL ALOI"
+      }
+    }
+    </script>
+
+    <!-- Google tag (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TPDM0JFCKZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TPDM0JFCKZ');
+    </script>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
