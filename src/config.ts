@@ -17,7 +17,7 @@ export const PROFILE: Profile = {
   title: "Another Data Guy",
   location: "Paris, FR",
   headline:
-    "Hi 👋, I’m a Data Engineer building reliable, scalable, and cost-efficient data platforms across diverse domains. My core expertise is data engineering, strengthened by a background in data science and MLOps. And while you’re reading this, I’m probably learning something new. I am currently working as Data Engineer at TotalEnergies Digital Factory",
+    "Hi 👋, I’m  Otmane EL ALOI, a Data Engineer building reliable, scalable, and cost-efficient data platforms across diverse industries. My core expertise is data engineering, strengthened by a background in data science and MLOps. And while you’re reading this, I’m probably learning something new. I am currently working as Data Engineer at TotalEnergies Digital Factory",
   email: "elaloi.otmane@gmail.com",
   socials: {
     github: "https://github.com/otmane-el-aloi",
