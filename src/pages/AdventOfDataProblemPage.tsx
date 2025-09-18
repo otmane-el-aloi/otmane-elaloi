@@ -15,12 +15,12 @@ export default function AdventProblemPage() {
         Problem not found.
       </main>
     );
-//   if (!unlocked)
-//     return (
-//       <main className="mx-auto max-w-3xl px-4 py-10">
-//         🔒 This day is not unlocked yet.
-//       </main>
-//     );
+  if (!unlocked)
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        🔒 This day is not unlocked yet.
+      </main>
+    );
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
@@ -38,36 +38,17 @@ export default function AdventProblemPage() {
         <h2>Expected Deliverables</h2>
         <p>{p.deliverables}</p>
         <h2>Submit</h2>
-        <ul>
-          <li>
-            Issue (form):{" "}
-            <a
-              className="underline"
-              href={`https://github.com/YOUR_USER/YOUR_REPO/issues/new?template=solution.yml&day=${p.day}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              open
-            </a>
-          </li>
-          <li>
-            Pull Request to{" "}
-            <code>
-              solutions/day-{String(p.day).padStart(2, "0")}/&lt;your-username&gt;/
-            </code>
-          </li>
-          <li>
-            Day discussion:{" "}
-            <a
-              className="underline"
-              href={`https://github.com/otmane-el-aloi/otmane-elaloi/discussions/categories/advent-of-data-2025`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              view
-            </a>
-          </li>
-        </ul>
+        <p>
+          Day discussion:{" "}
+          <a
+            className="underline"
+            href={`https://github.com/otmane-el-aloi/otmane-elaloi/discussions/categories/advent-of-data-2025`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            view
+          </a>
+        </p>
       </section>
     </main>
   );

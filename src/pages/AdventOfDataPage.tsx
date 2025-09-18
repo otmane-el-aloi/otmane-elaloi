@@ -106,7 +106,7 @@ export default function AdventPage() {
           </li>
         </ul>
       </nav>
-      
+
       {/* Hero */}
       <header className="mb-6">
         <h1 className="text-2xl font-semibold mb-2">Advent of Data Engineering — 2025</h1>
