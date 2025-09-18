@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+src/data/advent/problems_template.*
+src/data/advent/problems_solutions.*
