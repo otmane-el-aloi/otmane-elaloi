@@ -55,3 +55,12 @@ export interface Post {
   source?: "local" | "medium" | "external";
   url?: string;
 }
+
+export interface AdventProblem {
+  id: string;
+  day: number;
+  title: string;
+  difficulty: string;
+  tags: string[];
+  content?: string;
+}

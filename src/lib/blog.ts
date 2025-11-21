@@ -1,58 +1,31 @@
 import type { Post } from "../types";
 import { toAssetUrl } from "./paths";
-
-function coercePublished(v: unknown): boolean {
-  if (v === undefined || v === null) return true;
-  if (typeof v === "boolean") return v;
-  if (typeof v === "number") return v !== 0;
-  if (typeof v === "string") {
-    const s = v.trim().toLowerCase();
-    return !(s === "false" || s === "0" || s === "no" || s === "off");
-  }
-  return Boolean(v);
-}
-
-function parseFrontMatter(raw: string): { data: Record<string, any>; content: string } {
-  const fmMatch = raw.match(/^---\s*[\r\n]+([\s\S]*?)\n---\s*[\r\n]+([\s\S]*)$/m);
-  if (!fmMatch) return { data: {}, content: raw };
-  const yaml = fmMatch[1];
-  const content = fmMatch[2];
-  const data: Record<string, any> = {};
-  yaml.split(/\r?\n/).forEach((line) => {
-    const m = line.match(/^([A-Za-z0-9_\-]+):\s*(.*)$/);
-    if (!m) return;
-    const key = m[1];
-    let val: any = m[2].trim();
-    if (/^\[.*\]$/.test(val)) {
-      val = (val as string)
-        .replace(/^\[/, "")
-        .replace(/\]$/, "")
-        .split(",")
-        .map((s) => (s as string).trim().replace(/^['"]|['"]$/g, ""))
-        .filter(Boolean);
-    } else if (/^(true|false)$/i.test(val)) {
-      val = /^true$/i.test(val);
-    } else if (/^['"].*['"]$/.test(val)) {
-      val = (val as string).replace(/^['"]|['"]$/g, "");
-    }
-    (data as any)[key] = val;
-  });
-  return { data, content };
-}
+import {
+  coercePublished,
+  parseFrontMatter,
+  fetchText,
+  fetchJSON,
+} from "./helpers";
 
 function sourceFromUrl(u?: string): "medium" | "external" | "local" {
   if (!u) return "local";
   try {
     const host = new URL(u).hostname.toLowerCase();
     return host.includes("medium.com") ? "medium" : "external";
-  } catch { return "external"; }
+  } catch {
+    return "external";
+  }
 }
 
 function normalizePost(p: Partial<Post>): Post {
   const slug =
     p.slug ||
     (p.title
-      ? p.title.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-")
+      ? p.title
+          .toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-")
       : crypto.randomUUID());
 
   return {
@@ -68,27 +41,16 @@ function normalizePost(p: Partial<Post>): Post {
   };
 }
 
-async function fetchText(url: string): Promise<string | null> {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return await res.text();
-  } catch { return null; }
-}
-async function fetchJSON<T = any>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return (await res.json()) as T;
-  } catch { return null; }
-}
-
 export async function loadPosts(): Promise<Post[]> {
-  if (Array.isArray(window.__POSTS__)) {
-    return window.__POSTS__
+  if (Array.isArray((window as any).__POSTS__)) {
+    return (window as any).__POSTS__
       .map(normalizePost)
       .filter((p) => p.published)
-      .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
+      .sort(
+        (a, b) =>
+          new Date(b.dateISO).getTime() -
+          new Date(a.dateISO).getTime()
+      );
   }
 
   const manifest = await fetchJSON<any[]>(toAssetUrl("posts/index.json"));
@@ -104,22 +66,28 @@ export async function loadPosts(): Promise<Post[]> {
           out.push(normalizePost({ ...data, content }));
         }
       } else if (item.url) {
-        // 👇 url-only link-post
-        out.push(normalizePost({
-          title: item.title,
-          url: item.url,
-          tags: item.tags,
-          published: item.published !== false,
-          dateISO: item.date || item.dateISO,
-          slug: item.slug,            
-          source: item.source || sourceFromUrl(item.url),
-          content: "",
-        }));
+        // url-only link-post
+        out.push(
+          normalizePost({
+            title: item.title,
+            url: item.url,
+            tags: item.tags,
+            published: item.published !== false,
+            dateISO: item.date || item.dateISO,
+            slug: item.slug,
+            source: item.source || sourceFromUrl(item.url),
+            content: "",
+          })
+        );
       }
     }
     return out
       .filter((p) => p.published)
-      .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
+      .sort(
+        (a, b) =>
+          new Date(b.dateISO).getTime() -
+          new Date(a.dateISO).getTime()
+      );
   }
 
   // fallback
@@ -136,20 +104,34 @@ export async function loadPosts(): Promise<Post[]> {
 }
 
 export const sortByDateDesc = (posts: Post[]) =>
-  [...posts].sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
+  [...posts].sort(
+    (a, b) =>
+      new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime()
+  );
 
 export function pickFeaturedPost(posts: Post[]): Post | null {
   if (!posts?.length) return null;
   const flagged = posts.find((p) => p.published !== false);
   if (flagged) return flagged;
   const tagged = posts.find(
-    (p) => p.published !== false && (p.tags || []).some((t) => t.toLowerCase() === "featured")
+    (p) =>
+      p.published !== false &&
+      (p.tags || []).some(
+        (t) => t.toLowerCase() === "featured"
+      )
   );
   const publishedSorted = [...posts]
     .filter((p) => p.published !== false)
-    .sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
+    .sort(
+      (a, b) =>
+        new Date(b.dateISO).getTime() -
+        new Date(a.dateISO).getTime()
+    );
   return tagged || publishedSorted[0] || null;
 }
+
+// keep your mermaid helpers here unchanged:
+// ensureMermaid, upgradeMermaidBlocks, renderMermaid...
 
 
 let __mermaidInit: Promise<typeof import("mermaid")> | null = null;
@@ -223,3 +205,6 @@ export async function renderMermaid(container: HTMLElement | null) {
     })
   );
 }
+
+
+// --- Advent-specific bits ---

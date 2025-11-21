@@ -1,55 +1,180 @@
 /// <reference types="vite/client" />
-import { useParams } from "react-router-dom";
-import problems from "../data/advent/problems.json";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { loadAdventProblems, findAdventProblemByDay } from "../lib/advent";
+import type { AdventProblem } from "../types";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import {
+  Calendar,
+  ChevronLeft,
+  Tag as TagIcon,
+  Lock as LockIcon,
+} from "lucide-react";
+
+const ADVENT_YEAR = 2025;
+const ADVENT_MONTH = 10; // 0-based: 11 = December
 
 export default function AdventProblemPage() {
   const { day } = useParams();
-  const d = parseInt(day || "", 10);
-  const p = (problems as any[]).find((x) => x.day === d);
-  const unlocked =
-    !Number.isNaN(d) && new Date(Date.UTC(2025, 10, d)) <= new Date();
+  const navigate = useNavigate();
 
-  if (!p)
+  const [problems, setProblems] = useState<AdventProblem[] | null>(null);
+
+  useEffect(() => {
+    loadAdventProblems().then(setProblems);
+  }, []);
+
+  if (!problems) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-10">
-        Problem not found.
+        Loading…
       </main>
     );
-  if (!unlocked)
+  }
+
+  const d = parseInt(day || "", 10);
+  const p = findAdventProblemByDay(problems, d);
+
+  const unlockDate =
+    !Number.isNaN(d) && d >= 1 && d <= 25
+      ? new Date(Date.UTC(ADVENT_YEAR, ADVENT_MONTH, d))
+      : null;
+
+  const unlocked = !!unlockDate && unlockDate <= new Date();
+
+  // Not found
+  if (!p) {
     return (
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        🔒 This day is not unlocked yet.
+      <main className="mx-auto max-w-3xl px-4 py-16">
+        <button
+          onClick={() => navigate("/advent")}
+          className="mb-6 inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          Back to calendar
+        </button>
+        <h1 className="text-xl font-semibold">Problem not found</h1>
+        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+          The challenge you’re looking for doesn’t exist or hasn’t been
+          published yet.
+        </p>
       </main>
     );
+  }
+
+  // Locked state
+  if (!unlocked) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-20 flex flex-col items-center text-center">
+        <button
+          onClick={() => navigate("/advent")}
+          className="mb-6 inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          Back to calendar
+        </button>
+
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-neutral-200 bg-neutral-100 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+          <LockIcon className="h-7 w-7 text-neutral-500" />
+        </div>
+
+        <h1 className="mt-5 text-xl font-semibold">
+          This problem is still locked
+        </h1>
+
+        <p className="mt-2 max-w-md text-sm text-neutral-600 dark:text-neutral-400">
+          Day {d} unlocks at <strong>00:00 UTC</strong> on{" "}
+          {unlockDate?.toUTCString().slice(0, 16)}.{" "}
+          Check back then to unwrap this challenge.
+        </p>
+      </main>
+    );
+  }
+
+  const displayDate = unlockDate
+    ? unlockDate.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "";
+
+  // Prefer a specific markdown field if present; otherwise fall back to content
+  const markdownContent = (p as any).markdown ?? (p as any).content ?? "";
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-semibold mb-2">
-        Day {p.day} — {p.title}
-      </h1>
-      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
-        Difficulty: {p.difficulty} · Tags: {p.tags.join(", ")}
-      </p>
-      <section className="prose dark:prose-invert max-w-none">
-        <h2>Problem Statement</h2>
-        <p>{p.statement}</p>
-        <h2>Data</h2>
-        <p>{p.data}</p>
-        <h2>Expected Deliverables</h2>
-        <p>{p.deliverables}</p>
-        <h2>Submit</h2>
-        <p>
-          Day discussion:{" "}
-          <a
-            className="underline"
-            href={`https://github.com/otmane-el-aloi/otmane-elaloi/discussions/categories/advent-of-data-2025`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            view
-          </a>
-        </p>
-      </section>
+      <article className="prose max-w-none dark:prose-invert">
+        {/* Back button */}
+        <button
+          onClick={() => navigate("/advent")}
+          className="mb-6 inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+        >
+          <ChevronLeft className="h-4 w-4" /> Back to calendar
+        </button>
+
+        {/* Title */}
+        <h1 className="mb-2 text-3xl font-bold">
+          Day {p.day} — {p.title}
+        </h1>
+
+        {/* Meta row */}
+        <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-neutral-500 dark:text-neutral-400">
+          {displayDate && (
+            <time className="inline-flex items-center gap-1">
+              <Calendar className="h-4 w-4" /> {displayDate}
+            </time>
+          )}
+          {p.difficulty && (
+            <>
+              <span>·</span>
+              <span className="text-xs rounded-full border border-neutral-300 px-2 py-0.5 uppercase tracking-wide dark:border-neutral-700">
+                Difficulty: {p.difficulty}
+              </span>
+            </>
+          )}
+          {p.tags?.length ? (
+            <>
+              <span>·</span>
+              <div className="flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs dark:border-neutral-700 dark:bg-neutral-900"
+                  >
+                    <TagIcon className="h-3 w-3" /> {t}
+                  </span>
+                ))}
+              </div>
+            </>
+          ) : null}
+        </div>
+
+        {/* Markdown body */}
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            a: (props) => (
+              <a
+                {...props}
+                className="underline underline-offset-4"
+                target="_blank"
+                rel="noreferrer"
+              />
+            ),
+            img: (props) => (
+              <img
+                {...props}
+                className="my-4 w-full rounded-xl border dark:border-neutral-800"
+                loading="lazy"
+              />
+            ),
+          }}
+        >
+          {markdownContent}
+        </ReactMarkdown>
+      </article>
     </main>
   );
 }
