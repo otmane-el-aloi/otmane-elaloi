@@ -45,9 +45,9 @@ export async function loadPosts(): Promise<Post[]> {
   if (Array.isArray((window as any).__POSTS__)) {
     return (window as any).__POSTS__
       .map(normalizePost)
-      .filter((p) => p.published)
+      .filter((p: Post) => p.published)
       .sort(
-        (a, b) =>
+        (a: Post, b: Post) =>
           new Date(b.dateISO).getTime() -
           new Date(a.dateISO).getTime()
       );

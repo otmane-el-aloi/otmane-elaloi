@@ -1,7 +1,4 @@
-import type { Post } from "../types";
-
-// If you also want this for posts, keep it here.
-// Advent doesn’t need `published`, but posts do.
+// src/lib/helpers.ts
 export function coercePublished(v: unknown): boolean {
   if (v === undefined || v === null) return true;
   if (typeof v === "boolean") return v;
