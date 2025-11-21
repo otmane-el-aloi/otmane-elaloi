@@ -38,7 +38,7 @@ export async function loadAdventProblems(): Promise<AdventProblem[]> {
   }
 
   // 2) Manifest-based loading
-  const manifest = await fetchJSON<any[]>(toAssetUrl("advent/index.json"));
+  const manifest = await fetchJSON<any[]>(toAssetUrl("advent-content/index.json"));
   if (Array.isArray(manifest) && manifest.length) {
     const out: AdventProblem[] = [];
 
@@ -79,7 +79,7 @@ export async function loadAdventProblems(): Promise<AdventProblem[]> {
 This is a sample Advent problem written in **Markdown**.
 
 - Put your real problems under \`/advent\`
-- Add an \`advent/index.json\` manifest to control order.`,
+- Add an \`advent-content/index.json\` manifest to control order.`,
     }),
   ];
 }

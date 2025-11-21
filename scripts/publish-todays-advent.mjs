@@ -36,9 +36,9 @@ const dayStr = String(day).padStart(2, "0");
 // ---------- PATHS ----------
 
 const contentFile = path.join("content", `day-${dayStr}.md`); // private repo
-const publicDir = path.join("advent");
+const publicDir = path.join("advent-content");
 const publicFile = path.join(publicDir, `day-${dayStr}.md`);
-const relManifestPath = `advent/day-${dayStr}.md`;
+const relManifestPath = `advent-content/day-${dayStr}.md`;
 const manifestFile = path.join(publicDir, "index.json");
 
 // ---------- COPY MARKDOWN ----------
