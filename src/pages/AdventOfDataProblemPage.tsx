@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 const ADVENT_YEAR = 2025;
-const ADVENT_MONTH = 10; // 0-based: 11 = December
+const ADVENT_MONTH = 11; // 0-based: 11 = December
 
 export default function AdventProblemPage() {
   const { day } = useParams();
