@@ -33,7 +33,7 @@ jobs:
 
       - name: Commit & push (if changes)
         run: |
-          git add public/data/advent/
+          git add advent/
           git config user.name "advent-bot"
           git config user.email "advent-bot@users.noreply.github.com"
           git commit -am "chore: publish today's advent problem"
