@@ -5,7 +5,7 @@ import path from "node:path";
 
 // Set this to `true` when you want to test a specific day locally
 const TEST_MODE = true;
-const TEST_DAY = 1; // e.g. 2 for testing
+const TEST_DAY = 3; // e.g. 2 for testing
 
 // ---------- DAY SELECTION ----------
 
