@@ -87,7 +87,7 @@ export default function AdventPage() {
           Hi there — glad you're here! I hope you'll enjoy this Advent calendar
           of data engineering challenges. Each day unlocks a new problem
           touching on real-world topics: performance tuning, modeling
-          trade-offs, governance, lakehouse patterns... and many more surprises
+          trade-offs, lakehouse patterns... and other things that make your query optimizer cry
           😉.
           <br />
           <br />
