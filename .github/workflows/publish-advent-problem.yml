@@ -1,0 +1,43 @@
+name: Publish Advent Problem
+
+on:
+  schedule:
+    - cron: "0 0 * 12 *" # every day in December at 00:00 UTC
+  workflow_dispatch: {}   # allow manual trigger too
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout public repo
+        uses: actions/checkout@v4
+
+      - name: Checkout private content repo
+        uses: actions/checkout@v4
+        with:
+          repository: otmane-el-aloi/2025-advent-content
+          token: ${{ secrets.ADVENT_CONTENT_REPO_TOKEN }}
+          path: content
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Publish today’s problem
+        run: node scripts/publish-todays-advent.mjs
+
+      - name: Commit & push (if changes)
+        run: |
+          if git diff --quiet; then
+            echo "No changes, nothing to commit."
+            exit 0
+          fi
+          git config user.name "advent-bot"
+          git config user.email "advent-bot@users.noreply.github.com"
+          git commit -am "chore: publish today's advent problem"
+          git push

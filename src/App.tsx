@@ -13,6 +13,8 @@ import BlogCinemaBanner from "./components/blog/BlogCinemaBanner";
 import HomePage from "./pages/HomePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import AdventPage from "./pages/AdventOfDataPage";
+import AdventProblemPage from "./pages/AdventOfDataProblemPage";
 
 export default function App(): React.ReactElement {
   const [theme, setTheme] = useTheme();
@@ -81,6 +83,15 @@ export default function App(): React.ReactElement {
 
           {/* Desktop nav */}
           <nav className="hidden gap-6 sm:flex" aria-label="Primary">
+            {/* ADVENT LINK */}
+            <Link to="/advent" className="text-sm" onClick={() => setMobileOpen(false)}>
+              Advent 2025
+            </Link>
+            {FEATURES.blog && (
+              <Link to="/blog" className="text-sm" onClick={() => setMobileOpen(false)}>
+                Blog
+              </Link>
+            )}
             {FEATURES.services && (
               <a
                 href="#services"
@@ -119,11 +130,6 @@ export default function App(): React.ReactElement {
               >
                 Certifications
               </a>
-            )}
-            {FEATURES.blog && (
-              <Link to="/blog" className="text-sm" onClick={() => setMobileOpen(false)}>
-                Blog
-              </Link>
             )}
             <a
               href="#contact"
@@ -190,6 +196,13 @@ export default function App(): React.ReactElement {
               {/* Sheet */}
               <div className="sm:hidden absolute left-0 right-0 top-full z-40 border-b border-neutral-200/70 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95">
                 <div className="px-4 py-3 flex flex-col gap-3 text-sm">
+                  <Link 
+                    to="/advent"
+                    className="px-2 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Advent 2025
+                  </Link>
                   {FEATURES.services && (
                     <button
                       className="text-left px-2 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
@@ -276,6 +289,8 @@ export default function App(): React.ReactElement {
           path="/blog/:slug"
           element={<BlogPostPage theme={theme} posts={posts} />} // see tiny change below
         />
+        <Route path="/advent" element={<AdventPage />} />
+        <Route path="/advent/:day" element={<AdventProblemPage />} />
         {/* fallback */}
         <Route path="*" element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />} />
       </Routes>
