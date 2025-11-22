@@ -11,7 +11,7 @@ export default function AdventComments({ term, theme }: AdventCommentsProps) {
       <Giscus
         repo="otmane-el-aloi/otmane-elaloi"
         repoId="R_kgDOGq3KWQ"
-        category="Advent Discussions"
+        category="Advent Of Data - 2025"
         categoryId="DIC_kwDOGq3KWc4Cvned"
         mapping="specific"
         term={term}
