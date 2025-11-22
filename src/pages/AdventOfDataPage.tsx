@@ -1,18 +1,17 @@
 /// <reference types="vite/client" />
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Lock,
   Unlock,
   Gift,
   Calendar,
   Sparkles,
-  ChevronRight,
   AlertTriangle,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
 import { loadAdventProblems } from "../lib/advent";
+import { useAppNavigation } from "../lib/navigation";
 import type { AdventProblem } from "../types";
 
 const month = 10;
@@ -45,6 +44,13 @@ export default function AdventPage() {
   }, []);
 
   const progress = (totalUnlocked / days.length) * 100;
+
+  const { navigateTo } = useAppNavigation();
+
+  // Example usage of navigateTo
+  const handleNavigateToProblem = (day: number) => {
+    navigateTo("advent-problem", { day });
+  };
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
@@ -173,18 +179,17 @@ export default function AdventPage() {
                     <div className="mb-1 flex items-center justify-between gap-2">
                       <div className="font-medium">{meta.title}</div>
                     </div>
-                    <Link
-                      to={`/advent/${d}`}
-                      className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full 
-                                bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm 
-                                ring-1 ring-blue-600/70 transition 
-                                hover:bg-blue-700 hover:shadow-md 
-                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400
-                                dark:bg-blue-500 dark:hover:bg-blue-400 dark:ring-blue-500/70"
+                    <button
+                      onClick={() => handleNavigateToProblem(d)}
+                      className="mt-2 inline-flex items-center justify-center gap-2 rounded-full 
+                                bg-green-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm 
+                                ring-1 ring-green-600/70 transition 
+                                hover:bg-green-700 hover:shadow-md 
+                                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400
+                                dark:bg-green-500 dark:hover:bg-green-400 dark:ring-green-500/70"
                     >
-                      <span>Open problem</span>
-                      <ChevronRight className="h-4 w-4" />
-                    </Link>
+                      <span>Go to Challenge</span>
+                    </button>
                   </div>
                 ) : (
                   <div className="mt-3 text-sm">

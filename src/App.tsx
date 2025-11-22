@@ -3,9 +3,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { PersonStanding, Download, Sun, Moon, Menu, X } from "lucide-react";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { FEATURES, PROFILE } from "./config";
-import type { Post, Route as AppRoute, RouteName } from "./types";
+import type { Post } from "./types";
 import { loadPosts, sortByDateDesc } from "./lib/blog";
 import { useTheme } from "./lib/theme";
+import { useAppNavigation } from "./lib/navigation";
 import Button from "./components/ui/Button";
 import BlogCinemaBanner from "./components/blog/BlogCinemaBanner";
 
@@ -58,13 +59,7 @@ export default function App(): React.ReactElement {
     [navigate]
   );
 
-  // tiny wrapper to keep your old signature if you still call navigate("post", { slug })
-  const navigateOld = useCallback((name: RouteName, params?: AppRoute["params"]) => {
-    if (name === "home") navigate("/home");
-    else if (name === "blog") navigate("/blog");
-    else if (name === "post") navigate(`/blog/${params?.slug ?? ""}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [navigate]);
+  const { navigateTo } = useAppNavigation();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 text-neutral-900 dark:from-neutral-950 dark:to-neutral-900 dark:text-neutral-50">
@@ -277,11 +272,11 @@ export default function App(): React.ReactElement {
       <Routes>
         <Route
           path="/"
-          element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />}
+          element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateTo} />}
         />
         <Route
           path="/home"
-          element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />}
+          element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateTo} />}
         />
         <Route
           path="/blog"
@@ -291,7 +286,7 @@ export default function App(): React.ReactElement {
               loading={loading}
               query={query}
               setQuery={setQuery}
-              navigate={navigateOld}
+              navigate={navigateTo}
             />
           }
         />
@@ -302,7 +297,7 @@ export default function App(): React.ReactElement {
         <Route path="/advent" element={<AdventPage />} />
         <Route path="/advent/:day" element={<AdventProblemPage />} />
         {/* fallback */}
-        <Route path="*" element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateOld} />} />
+        <Route path="*" element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateTo} />} />
       </Routes>
 
       {/* FOOTER */}

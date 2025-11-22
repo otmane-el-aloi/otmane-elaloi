@@ -19,7 +19,7 @@ export default function AdventComments({ term, theme }: AdventCommentsProps) {
         emitMetadata="0"
         inputPosition="bottom"
         lang="en"
-        theme={theme === "dark" ? "dark_dimmed" : "light"}
+        theme={theme === "dark" ? "transparent_dark" : "light"}
       />
     </div>
   );
