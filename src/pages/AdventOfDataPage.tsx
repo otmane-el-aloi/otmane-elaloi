@@ -55,7 +55,7 @@ export default function AdventPage() {
             <Gift className="h-5 w-5 text-pink-600" />
             <div>
               <div className="font-semibold">
-                Advent of Data Engineering — 2025
+                Advent Calendar of Data Engineering — 2025
               </div>
               <div>
                 A daily data engineering challenge from December 1st to 25th{" "}
@@ -77,7 +77,7 @@ export default function AdventPage() {
       {/* Hero */}
       <header className="mb-6">
         <h1 className="mb-2 flex items-center gap-2 text-2xl font-semibold">
-          <span>Advent of Data Engineering — 2025</span>
+          <span>Advent Calendar of Data Engineering — 2025</span>
         </h1>
       </header>
 
@@ -88,24 +88,10 @@ export default function AdventPage() {
           of data engineering challenges. Each day unlocks a new problem
           touching on real-world topics: performance tuning, modeling
           trade-offs, lakehouse patterns... and other things that make your query optimizer cry
-          😉.
-          <br />
-          <br />
-          I took inspiration from{" "}
-          <a
-            href="https://adventofcode.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline text-blue-700 dark:text-blue-400"
-          >
-            Advent of Code
-          </a>
-          , but instead of general programming puzzles this project is aimed at
-          experienced data engineers. Since it’s hard to design problems where
-          the “correct” solution is just a single number, submissions here
-          aren’t automatically verified. Instead, you’re encouraged to share SQL
+          😉. Since it’s hard to design problems where the “correct” solution is just a single number, there are no submissions.
+          Instead, you’re encouraged to share SQL
           queries, Code Snippets, or even architecture notes — and discuss them
-          openly with the community on GitHub Discussions.
+          openly in GitHub Discussions dedicated to each problem.
         </p>
       </section>
 
@@ -224,11 +210,11 @@ export default function AdventPage() {
           />
           <Faq
             q="How do I submit?"
-            a="Use the Issue form for a summary and links. Open a PR under solutions/day-XX/ if you’re sharing code, and continue the conversation in GitHub Discussions."
+            a="There are no submissions for this event. Please share your thoughts in the conversation in GitHub Discussions."
           />
           <Faq
             q="What formats are accepted?"
-            a="SQL, Spark jobs, notebooks, or architecture notes in Markdown. Anything that’s reproducible, explained, and teaches someone else is perfect."
+            a="SQL, Spark jobs, notebooks, or architecture notes. Anything that’s reproducible, explained, and teaches someone else is perfect."
           />
           <Faq
             q="Do I need 'perfect' solutions?"

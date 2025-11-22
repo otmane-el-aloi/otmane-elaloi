@@ -84,8 +84,18 @@ export default function App(): React.ReactElement {
           {/* Desktop nav */}
           <nav className="hidden gap-6 sm:flex" aria-label="Primary">
             {/* ADVENT LINK */}
-            <Link to="/advent" className="text-sm" onClick={() => setMobileOpen(false)}>
-              Advent 2025
+            <Link to="/advent" className="text-sm relative" onClick={() => setMobileOpen(false)}>
+              Advent Calendar 2025
+              <span
+                aria-label="New page"
+                className="
+                  absolute -top-2 -left-8 z-10 select-none rounded-full bg-pink-600
+                  px-2 py-1 text-[7px] font-extrabold uppercase tracking-widest text-white shadow-lg
+                  ring-2 ring-white/60 dark:ring-black/40
+                "
+              >
+                New 
+              </span>
             </Link>
             {FEATURES.blog && (
               <Link to="/blog" className="text-sm" onClick={() => setMobileOpen(false)}>
