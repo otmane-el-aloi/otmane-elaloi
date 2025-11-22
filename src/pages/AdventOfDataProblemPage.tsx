@@ -11,9 +11,10 @@ import {
   Tag as TagIcon,
   Lock as LockIcon,
 } from "lucide-react";
+import AdventComments from "../components/advent/AdventComments";
 
 const ADVENT_YEAR = 2025;
-const ADVENT_MONTH = 11; // 0-based: 11 = December
+const ADVENT_MONTH = 10; // 0-based: 11 = December
 
 export default function AdventProblemPage() {
   const { day } = useParams();
@@ -104,7 +105,7 @@ export default function AdventProblemPage() {
   const markdownContent = (p as any).markdown ?? (p as any).content ?? "";
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
+    <main className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
       <article className="prose max-w-none dark:prose-invert">
         {/* Back button */}
         <button
@@ -175,6 +176,9 @@ export default function AdventProblemPage() {
           {markdownContent}
         </ReactMarkdown>
       </article>
+
+      {/* Advent Comments */}
+      <AdventComments term={`advent-day-${p.day}`} theme="dark" />
     </main>
   );
 }

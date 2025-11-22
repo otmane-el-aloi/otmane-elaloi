@@ -15,7 +15,7 @@ import {
 import { loadAdventProblems } from "../lib/advent";
 import type { AdventProblem } from "../types";
 
-const month = 11;
+const month = 10;
 const days = Array.from({ length: 25 }, (_, i) => i + 1);
 
 const toIso = (day: number) =>
