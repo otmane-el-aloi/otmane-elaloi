@@ -296,8 +296,6 @@ export default function App(): React.ReactElement {
         />
         <Route path="/advent" element={<AdventPage />} />
         <Route path="/advent/:day" element={<AdventProblemPage />} />
-        {/* fallback */}
-        {/* <Route path="*" element={<HomePage posts={posts} latestPosts={latestPosts} navigate={navigateTo} />} /> */}
       </Routes>
 
       {/* FOOTER */}
