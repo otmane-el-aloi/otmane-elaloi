@@ -178,7 +178,7 @@ export default function AdventProblemPage() {
       </article>
 
       {/* Advent Comments */}
-      <AdventComments theme="dark" />
+      <AdventComments term={`advent-day-${p.day}`} theme="dark" />
     </main>
   );
 }

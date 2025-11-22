@@ -1,10 +1,11 @@
 import Giscus from "@giscus/react";
 
 type AdventCommentsProps = {
+  term: string; // Unique identifier for the advent problem
   theme: "light" | "dark";
 };
 
-export default function AdventComments({theme }: AdventCommentsProps) {
+export default function AdventComments({ term, theme }: AdventCommentsProps) {
   return (
     <div className="mt-10">
       <Giscus
@@ -12,7 +13,8 @@ export default function AdventComments({theme }: AdventCommentsProps) {
         repoId="R_kgDOGq3KWQ"
         category="Advent Of Data - 2025"
         categoryId="DIC_kwDOGq3KWc4Cvned"
-        mapping="url"
+        mapping="specific"
+        term={term}
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="bottom"
