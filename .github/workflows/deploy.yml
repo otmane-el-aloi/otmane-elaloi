@@ -36,7 +36,11 @@ jobs:
           # Vite serves under /otmane-elaloi/ for GitHub Pages
           BASE_PATH: /${{ github.event.repository.name }}/
           SITE_BASE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
-        run: npm run build
+        run: |
+          npm run build
+          # SPA fallback for GitHub Pages: serve the app shell for any route so
+          # Giscus auth redirects (and other deep links) land on the client router.
+          cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
