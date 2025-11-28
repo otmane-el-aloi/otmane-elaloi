@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import type { AdventLoaderData } from "../routes/advent";
 
-const month = 10;
+const month = 11;
 const days = Array.from({ length: 25 }, (_, i) => i + 1);
 
 const toIso = (day: number) =>
