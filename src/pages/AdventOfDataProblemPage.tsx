@@ -1,8 +1,7 @@
 /// <reference types="vite/client" />
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { loadAdventProblems, findAdventProblemByDay } from "../lib/advent";
-import type { AdventProblem } from "../types";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { findAdventProblemByDay } from "../lib/advent";
+import type { AdventLoaderData } from "../routes/advent";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
@@ -14,28 +13,15 @@ import {
 import AdventComments from "../components/advent/AdventComments";
 
 const ADVENT_YEAR = 2025;
-const ADVENT_MONTH = 11; // 0-based: 11 = December
+const ADVENT_MONTH = 10; // 0-based: 11 = December
 
 export default function AdventProblemPage() {
   const { day } = useParams();
   const navigate = useNavigate();
-
-  const [problems, setProblems] = useState<AdventProblem[] | null>(null);
-
-  useEffect(() => {
-    loadAdventProblems().then(setProblems);
-  }, []);
-
-  if (!problems) {
-    return (
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        Loading…
-      </main>
-    );
-  }
+  const { problems } = useOutletContext<AdventLoaderData>();
 
   const d = parseInt(day || "", 10);
-  const p = findAdventProblemByDay(problems, d);
+  const problem = findAdventProblemByDay(problems, d);
 
   const unlockDate =
     !Number.isNaN(d) && d >= 1 && d <= 25
@@ -44,8 +30,7 @@ export default function AdventProblemPage() {
 
   const unlocked = !!unlockDate && unlockDate <= new Date();
 
-  // Not found
-  if (!p) {
+  if (!problem) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-16">
         <button
@@ -57,14 +42,13 @@ export default function AdventProblemPage() {
         </button>
         <h1 className="text-xl font-semibold">Problem not found</h1>
         <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-          The challenge you’re looking for doesn’t exist or hasn’t been
+          The challenge you�?Tre looking for doesn�?Tt exist or hasn�?Tt been
           published yet.
         </p>
       </main>
     );
   }
 
-  // Locked state
   if (!unlocked) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-20 flex flex-col items-center text-center">
@@ -101,13 +85,11 @@ export default function AdventProblemPage() {
       })
     : "";
 
-  // Prefer a specific markdown field if present; otherwise fall back to content
-  const markdownContent = (p as any).markdown ?? (p as any).content ?? "";
+  const markdownContent = (problem as any).markdown ?? (problem as any).content ?? "";
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
       <article className="prose max-w-none dark:prose-invert">
-        {/* Back button */}
         <button
           onClick={() => navigate("/advent")}
           className="mb-6 inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
@@ -115,31 +97,29 @@ export default function AdventProblemPage() {
           <ChevronLeft className="h-4 w-4" /> Back to calendar
         </button>
 
-        {/* Title */}
         <h1 className="mb-2 text-3xl font-bold">
-          Day {p.day} — {p.title}
+          Day {problem.day} �?" {problem.title}
         </h1>
 
-        {/* Meta row */}
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-neutral-500 dark:text-neutral-400">
           {displayDate && (
             <time className="inline-flex items-center gap-1">
               <Calendar className="h-4 w-4" /> {displayDate}
             </time>
           )}
-          {p.difficulty && (
+          {problem.difficulty && (
             <>
-              <span>·</span>
+              <span>��</span>
               <span className="text-xs rounded-full border border-neutral-300 px-2 py-0.5 uppercase tracking-wide dark:border-neutral-700">
-                Difficulty: {p.difficulty}
+                Difficulty: {problem.difficulty}
               </span>
             </>
           )}
-          {p.tags?.length ? (
+          {problem.tags?.length ? (
             <>
-              <span>·</span>
+              <span>��</span>
               <div className="flex flex-wrap gap-2">
-                {p.tags.map((t) => (
+                {problem.tags.map((t) => (
                   <span
                     key={t}
                     className="inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-xs dark:border-neutral-700 dark:bg-neutral-900"
@@ -152,7 +132,6 @@ export default function AdventProblemPage() {
           ) : null}
         </div>
 
-        {/* Markdown body */}
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -177,8 +156,7 @@ export default function AdventProblemPage() {
         </ReactMarkdown>
       </article>
 
-      {/* Advent Comments */}
-      <AdventComments term={`advent-day-${p.day}`} theme="dark" />
+      <AdventComments term={`advent-day-${problem.day}`} theme="dark" />
     </main>
   );
 }

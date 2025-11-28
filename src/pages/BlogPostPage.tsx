@@ -1,21 +1,16 @@
 import { useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import Button from "../components/ui/Button";
 import BlogPost from "../components/blog/BlogPost";
 import Comments from "../components/blog/Comments";
-import type { Post } from "../types";
 import { renderMermaid } from "../lib/blog";
+import type { RootOutletContext } from "../routes/root";
 
-export default function BlogPostPage({
-  posts,
-  theme,
-}: {
-  posts: Post[];
-  theme: "light" | "dark";
-}) {
+export default function BlogPostPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const postRef = useRef<HTMLDivElement>(null);
+  const { posts, theme } = useOutletContext<RootOutletContext>();
 
   const currentPost = posts.find((p) => p.slug === slug) || null;
 

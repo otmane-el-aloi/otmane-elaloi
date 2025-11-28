@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import {
   Lock,
   Unlock,
@@ -11,11 +12,9 @@ import {
   ChevronUp,
   Clock,
 } from "lucide-react";
-import { loadAdventProblems } from "../lib/advent";
-import { useAppNavigation } from "../lib/navigation";
-import type { AdventProblem } from "../types";
+import type { AdventLoaderData } from "../routes/advent";
 
-const month = 11;
+const month = 10;
 const days = Array.from({ length: 25 }, (_, i) => i + 1);
 
 const toIso = (day: number) =>
@@ -27,13 +26,9 @@ const isLocked = (day: number) =>
 const todayIsoUTC = () => new Date().toISOString().slice(0, 10);
 
 export default function AdventPage() {
-  const [problems, setProblems] = useState<AdventProblem[]>([]);
+  const { problems } = useOutletContext<AdventLoaderData>();
   const [shakingId, setShakingId] = useState<number | null>(null); // Track which card is shaking
-
-  // Load problems once on mount
-  useEffect(() => {
-    loadAdventProblems().then(setProblems);
-  }, []);
+  const navigate = useNavigate();
 
   const totalUnlocked = useMemo(
     () => days.filter((d) => !isLocked(d)).length,
@@ -47,10 +42,8 @@ export default function AdventPage() {
 
   const progress = (totalUnlocked / days.length) * 100;
 
-  const { navigateTo } = useAppNavigation();
-
   const handleNavigateToProblem = (day: number) => {
-    navigateTo("advent-problem", { day });
+    navigate(`/advent/${day}`);
   };
 
   // Feature: Shake interaction for locked items

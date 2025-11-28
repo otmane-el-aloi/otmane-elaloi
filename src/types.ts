@@ -38,12 +38,6 @@ export interface Project {
   link?: string;
 }
 
-export type RouteName = "home" | "blog" | "post";
-export interface Route {
-  name: RouteName;
-  params?: { slug?: string };
-}
-
 export interface Post {
   id: string;
   title: string;

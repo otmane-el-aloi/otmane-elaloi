@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { FEATURES, PROFILE, SKILLS, CERTS, SELECTED_WORK, SIDE_PROJECTS } from "../config";
 import Section from "../components/ui/Section";
 import Button from "../components/ui/Button";
@@ -6,7 +7,7 @@ import Badge from "../components/ui/Badge";
 import BlogSpotlight from "../components/blog/BlogSpotlight";
 import { listContainer, listItem } from "../lib/motion";
 import { ArrowRight, ExternalLink, Github, Linkedin, Mail, Award } from "lucide-react";
-import type { Post, RouteName, Route } from "../types";
+import type { RootOutletContext } from "../routes/root";
 
 function formatMonth(dateISO: string): string {
   try {
@@ -16,15 +17,9 @@ function formatMonth(dateISO: string): string {
   }
 }
 
-export default function HomePage({
-  posts,
-  latestPosts,
-  navigate,
-}: {
-  posts: Post[];
-  latestPosts: Post[];
-  navigate: (name: RouteName, params?: Route["params"]) => void;
-}) {
+export default function HomePage() {
+  const { posts, latestPosts } = useOutletContext<RootOutletContext>();
+  const navigate = useNavigate();
   return (
     <main>
       <section className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-14 text-center sm:py-20">
@@ -72,8 +67,8 @@ export default function HomePage({
       {FEATURES.blog && posts.length > 0 && (
         <BlogSpotlight
           posts={posts}
-          onOpen={(p) => navigate("post", { slug: p.slug })}
-          onViewAll={() => navigate("blog")}
+          onOpen={(p) => navigate(`/blog/${p.slug}`)}
+          onViewAll={() => navigate("/blog")}
         />
       )}
 
@@ -245,14 +240,14 @@ export default function HomePage({
                     <Badge key={t}>{t}</Badge>
                   ))}
                 </div>
-                <Button onClick={() => navigate("post", { slug: p.slug })}>
+                <Button onClick={() => navigate(`/blog/${p.slug}`)}>
                   Read <ArrowRight className="h-4 w-4" />
                 </Button>
               </motion.article>
             ))}
           </motion.div>
           <div className="mt-6">
-            <Button onClick={() => navigate("blog")}>Visit the blog</Button>
+            <Button onClick={() => navigate("/blog")}>Visit the blog</Button>
           </div>
         </Section>
       )}
