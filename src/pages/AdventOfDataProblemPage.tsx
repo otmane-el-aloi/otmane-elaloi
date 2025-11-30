@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { findAdventProblemByDay } from "../lib/advent";
+import { toAssetUrl } from "../lib/paths";
 import type { AdventLoaderData } from "../routes/advent";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -86,6 +87,7 @@ export default function AdventProblemPage() {
     : "";
 
   const markdownContent = (problem as any).markdown ?? (problem as any).content ?? "";
+  const commentAnchorId = `advent-comments-day-${problem.day}`;
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
@@ -98,7 +100,7 @@ export default function AdventProblemPage() {
         </button>
 
         <h1 className="mb-2 text-3xl font-bold">
-          Day {problem.day} �?" {problem.title}
+          Day {problem.day} -  {problem.title}
         </h1>
 
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-neutral-500 dark:text-neutral-400">
@@ -109,7 +111,6 @@ export default function AdventProblemPage() {
           )}
           {problem.difficulty && (
             <>
-              <span>��</span>
               <span className="text-xs rounded-full border border-neutral-300 px-2 py-0.5 uppercase tracking-wide dark:border-neutral-700">
                 Difficulty: {problem.difficulty}
               </span>
@@ -117,7 +118,6 @@ export default function AdventProblemPage() {
           )}
           {problem.tags?.length ? (
             <>
-              <span>��</span>
               <div className="flex flex-wrap gap-2">
                 {problem.tags.map((t) => (
                   <span
@@ -146,6 +146,7 @@ export default function AdventProblemPage() {
             img: (props) => (
               <img
                 {...props}
+                src={props.src ? toAssetUrl(props.src) : undefined}
                 className="my-4 w-full rounded-xl border dark:border-neutral-800"
                 loading="lazy"
               />
@@ -156,7 +157,9 @@ export default function AdventProblemPage() {
         </ReactMarkdown>
       </article>
 
-      <AdventComments term={`advent-day-${problem.day}`} theme="dark" />
+      <section id={commentAnchorId} className="mt-10">
+        <AdventComments term={`advent-day-${problem.day}`} theme="dark" />
+      </section>
     </main>
   );
 }
