@@ -1,0 +1,41 @@
+name: Update Advent commenters leaderboard
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update commenters leaderboard
+        run: node scripts/update-advent-commenters.mjs
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: update advent commenters leaderboard"
+          branch: chore/update-advent-commenters
+          title: "chore: update advent commenters leaderboard"
+          body: |
+            Automated update of `public/advent-content/commenters.json` with the latest GitHub Discussions activity.
+          delete-branch: true
