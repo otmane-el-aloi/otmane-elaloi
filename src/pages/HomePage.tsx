@@ -4,7 +4,7 @@ import { FEATURES, PROFILE, SKILLS, CERTS, SELECTED_WORK, SIDE_PROJECTS } from "
 import Section from "../components/ui/Section";
 import Button from "../components/ui/Button";
 import Badge from "../components/ui/Badge";
-import BlogSpotlight from "../components/blog/BlogSpotlight";
+import BlogSpotlight from "../features/blog/components/BlogSpotlight";
 import { listContainer, listItem } from "../lib/motion";
 import { ArrowRight, ExternalLink, Github, Linkedin, Mail, Award } from "lucide-react";
 import type { RootOutletContext } from "../routes/root";

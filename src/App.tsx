@@ -3,10 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout, { rootLoader } from "./routes/root";
 import { AdventLayout, adventLoader } from "./routes/advent";
 import HomePage from "./pages/HomePage";
-import BlogPage from "./pages/BlogPage";
-import BlogPostPage from "./pages/BlogPostPage";
-import AdventPage from "./pages/AdventOfDataPage";
-import AdventProblemPage from "./pages/AdventOfDataProblemPage";
+import BlogPage from "./features/blog/pages/BlogPage";
+import BlogPostPage from "./features/blog/pages/BlogPostPage";
+import AdventPage from "./features/advent/pages/AdventOfDataPage";
+import AdventProblemPage from "./features/advent/pages/AdventOfDataProblemPage";
 
 const router = createBrowserRouter([
   {

@@ -7,7 +7,7 @@ import type { Post } from "../types";
 import { loadPosts, sortByDateDesc } from "../lib/blog";
 import { useTheme } from "../lib/theme";
 import Button from "../components/ui/Button";
-import BlogCinemaBanner from "../components/blog/BlogCinemaBanner";
+import BlogCinemaBanner from "../features/blog/components/BlogCinemaBanner";
 
 export interface RootLoaderData {
   posts: Post[];

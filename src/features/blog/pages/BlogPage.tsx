@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import Button from "../components/ui/Button";
-import BlogList from "../components/blog/BlogList";
-import type { RootOutletContext } from "../routes/root";
+import Button from "../../../components/ui/Button";
+import BlogList from "../components/BlogList";
+import type { RootOutletContext } from "../../../routes/root";
 import { BookOpen, Home } from "lucide-react";
 
 export default function BlogPage() {

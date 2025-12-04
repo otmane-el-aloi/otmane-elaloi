@@ -1,6 +1,6 @@
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { Post } from "../../types";
+import type { Post } from "../../../types";
 
 function isFeatured(p: any): boolean {
   if (p?.published === false) return false;

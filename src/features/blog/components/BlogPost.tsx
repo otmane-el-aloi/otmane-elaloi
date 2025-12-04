@@ -1,10 +1,10 @@
 import React from "react";
 import { Calendar, ChevronLeft, Tag as TagIcon } from "lucide-react";
-import type { Post } from "../../types";
-import Badge from "../ui/Badge";
+import type { Post } from "../../../types";
+import Badge from "../../../components/ui/Badge";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { toAssetUrl } from "../../lib/paths";
+import { toAssetUrl } from "../../../lib/paths";
 
 
 export default function BlogPost({ post, onBack }: { post: Post; onBack: () => void }) {

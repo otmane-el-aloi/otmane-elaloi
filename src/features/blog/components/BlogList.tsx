@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { ArrowRight, CheckCircle2, ExternalLink, Search, Tag as TagIcon } from "lucide-react";
-import type { Post } from "../../types";
-import Badge from "../ui/Badge";
-import Button from "../ui/Button";
+import type { Post } from "../../../types";
+import Badge from "../../../components/ui/Badge";
+import Button from "../../../components/ui/Button";
 import { motion } from "framer-motion";
-import { listContainer, listItem } from "../../lib/motion";
+import { listContainer, listItem } from "../../../lib/motion";
 
 function isMedium(url?: string) {
   if (!url) return false;

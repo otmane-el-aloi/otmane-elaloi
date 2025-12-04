@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import Button from "../components/ui/Button";
-import BlogPost from "../components/blog/BlogPost";
-import Comments from "../components/blog/Comments";
-import { renderMermaid } from "../lib/blog";
-import type { RootOutletContext } from "../routes/root";
+import Button from "../../../components/ui/Button";
+import BlogPost from "../components/BlogPost";
+import Comments from "../components/BlogComments";
+import { renderMermaid } from "../../../lib/blog";
+import type { RootOutletContext } from "../../../routes/root";
 
 export default function BlogPostPage() {
   const { slug } = useParams();
