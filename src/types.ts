@@ -29,6 +29,7 @@ export interface Cert {
   date: string;              // ISO or yyyy-mm-dd
   credentialUrl?: string;
   logo?: string;
+  isNew?: boolean;
 }
 
 export interface Project {

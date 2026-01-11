@@ -204,7 +204,14 @@ export default function HomePage() {
                     <h3 className="text-base font-semibold">{c.name}</h3>
                   </div>
                 </div>
-                <div className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">Issued {formatMonth(c.date)}</div>
+                <div className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
+                  Issued {formatMonth(c.date)}
+                  {c.isNew && (
+                    <span className="ml-2 inline-block rounded-full bg-pink-100 px-2 py-0.5 text-xs font-semibold text-pink-800 dark:bg-pink-900/30 dark:text-pink-300">
+                      NEW
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center gap-2">
                   <Button as="a" href={c.credentialUrl} target="_blank" rel="noopener noreferrer">
                     Verify credential <ExternalLink className="h-4 w-4" />

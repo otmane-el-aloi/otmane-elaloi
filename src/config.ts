@@ -39,6 +39,21 @@ export const SKILLS: Skill[] = [
 
 export const CERTS: Cert[] = [
   {
+    name: "Databricks Certified Data Engineer Professional",
+    issuer: "Databricks",
+    date: "2025-10-04",
+    credentialUrl: "https://credentials.databricks.com/37d110cb-4c35-4a82-a586-c11790d747d8#acc.QnwNJjUd",
+    logo: "",
+    isNew: true,
+  },
+  {
+    name: "Databricks Certified Gen AI Engineer Associate",
+    issuer: "Databricks",
+    date: "2025-01-01",
+    credentialUrl: "https://credentials.databricks.com/09ed8535-9acd-48dc-923b-535cd3096a81#acc.vOjSq9ZI",
+    logo: "",
+  },
+  {
     name: "Microsoft Certified: Azure Data Engineer Associate (DP-203)",
     issuer: "Microsoft",
     date: "2024-01-01",
@@ -59,13 +74,6 @@ export const CERTS: Cert[] = [
     issuer: "Databricks",
     date: "2023-01-01",
     credentialUrl: "https://credentials.databricks.com/14f726cd-2a98-483c-9e55-720345530281",
-    logo: "",
-  },
-  {
-    name: "Databricks Certified Gen AI Engineer Associate",
-    issuer: "Databricks",
-    date: "2025-01-01",
-    credentialUrl: "https://credentials.databricks.com/09ed8535-9acd-48dc-923b-535cd3096a81#acc.vOjSq9ZI",
     logo: "",
   },
 ];
