@@ -7,6 +7,7 @@ import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import AdventPage from "./pages/AdventOfDataPage";
 import AdventProblemPage from "./pages/AdventOfDataProblemPage";
+import { FEATURES } from "./config";
 
 const router = createBrowserRouter([
   {
@@ -19,16 +20,20 @@ const router = createBrowserRouter([
       { path: "home", element: <HomePage /> },
       { path: "blog", element: <BlogPage /> },
       { path: "blog/:slug", element: <BlogPostPage /> },
-      {
-        id: "advent",
-        path: "advent",
-        loader: adventLoader,
-        element: <AdventLayout />,
-        children: [
-          { index: true, element: <AdventPage /> },
-          { path: ":day", element: <AdventProblemPage /> },
-        ],
-      },
+      ...(FEATURES.adventCalendar
+        ? [
+          {
+            id: "advent",
+            path: "advent",
+            loader: adventLoader,
+            element: <AdventLayout />,
+            children: [
+              { index: true, element: <AdventPage /> },
+              { path: ":day", element: <AdventProblemPage /> },
+            ],
+          },
+        ]
+        : []),
     ],
   },
 ]);

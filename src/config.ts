@@ -10,6 +10,7 @@ export const FEATURES = {
   selectedWork: false,
   sideProjects: false,
   blog: true,
+  adventCalendar: false,
 };
 
 export const PROFILE: Profile = {

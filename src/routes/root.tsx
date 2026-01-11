@@ -55,19 +55,21 @@ export default function RootLayout(): JSX.Element {
           </Link>
 
           <nav className="hidden gap-6 sm:flex" aria-label="Primary">
-            <Link to="/advent" className="text-sm relative" onClick={() => setMobileOpen(false)}>
-              Advent Calendar 2025
-              <span
-                aria-label="New page"
-                className="
-                  absolute -top-2 -left-8 z-10 select-none rounded-full bg-pink-600
-                  px-2 py-1 text-[7px] font-extrabold uppercase tracking-widest text-white shadow-lg
-                  ring-2 ring-white/60 dark:ring-black/40
-                "
-              >
-                New
-              </span>
-            </Link>
+            {FEATURES.adventCalendar && (
+              <Link to="/advent" className="text-sm relative" onClick={() => setMobileOpen(false)}>
+                Advent Calendar 2025
+                <span
+                  aria-label="New page"
+                  className="
+                    absolute -top-2 -left-8 z-10 select-none rounded-full bg-pink-600
+                    px-2 py-1 text-[7px] font-extrabold uppercase tracking-widest text-white shadow-lg
+                    ring-2 ring-white/60 dark:ring-black/40
+                  "
+                >
+                  New
+                </span>
+              </Link>
+            )}
             {FEATURES.blog && (
               <Link to="/blog" className="text-sm" onClick={() => setMobileOpen(false)}>
                 Blog
@@ -168,13 +170,15 @@ export default function RootLayout(): JSX.Element {
               />
               <div className="sm:hidden absolute left-0 right-0 top-full z-40 border-b border-neutral-200/70 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95">
                 <div className="px-4 py-3 flex flex-col gap-3 text-sm">
-                  <Link
-                    to="/advent"
-                    className="px-2 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    Advent 2025
-                  </Link>
+                  {FEATURES.adventCalendar && (
+                    <Link
+                      to="/advent"
+                      className="px-2 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Advent 2025
+                    </Link>
+                  )}
                   {FEATURES.services && (
                     <button
                       className="text-left px-2 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800"
